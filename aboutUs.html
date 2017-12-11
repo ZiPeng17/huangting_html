@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="cn">
+  <head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" >
+    <meta http-equiv="Pragma" content="no-cache" >
+    <meta http-equiv="Expires" content="0" >
+    <meta name="format-detection" content="telephone=no">
+    <title>皇庭</title>
+    <script src="vue.min.js"></script>
+    <style type="text/css">
+        html, body, input, div, span {margin:0;padding:0;}
+       
+        .page {
+            min-height: 100vh;
+            padding-top: 10px;
+            background: #efeff4;
+            font-family: PingFang SC;
+            font-size: 15px;
+            padding: 10px 0 30px;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        .box {
+            margin-bottom: 10px;
+            padding-left: 43px;
+            background: #fff;
+        }
+        .box-title {
+            font-weight: bold;
+            line-height: 50px;
+        }
+        .border-b {
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+        }
+        .box-content {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.2;
+            padding: 15px 25px 15px 0;
+            text-align: justify;
+        }
+        .arrimg {
+            width: 23px;
+            height: 23px;
+            margin: 13.5px 0 0 -33px;
+            transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+            float: left;
+        }
+        .rotate90 {
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .red {
+            color: #e64340;
+        }
+        .black {
+            color: #000;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="app">
+        <div class="box">
+            <div class="box-title" @click="see" id="t0"><img class="arrimg" src="http://static.fengchaohuzhu.com/baby/static/arrow.png" alt="">关于小伴</div>
+            <div class="box-content" v-show="t0">
+小伴，是蜂巢互保网络科技有限公司旗下的品牌，是由一群来自斯坦福的学霸父母，育儿专家及互联网干将创办的首家儿童共享服务平台。<br>
+我们通过便捷的社区站点、时尚的互联网共享经济概念、精选科学的益智玩具及专家的育儿专家提供学习计划的服务平台，即可在家门口实现，平台上囊括了上万种绘本、几千种玩具、近百种乐高、电动车等知名品牌。<br>
+作为一个专业平台，我们特邀请了北京师范大学的学前教育专家及来自清华、斯坦福老牌父母成立研发团队，针对宝宝三大维度、五大领域、九大指标等领域，将理论与实践相结合，真正做到玩的专业、学的系统。
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-title" @click="see" id="t1"><img class="arrimg" src="http://static.fengchaohuzhu.com/baby/static/arrow.png" alt="">业务简介</div>
+            <div class="box-content" v-show="t1">
+我们根据孩子不同年龄、不同需求，在专家的指导下为其甄选各类适合该阶段孩子学习和益智的玩具、绘本、乐高、电动车等，并进行了系统的分类。您可在小区附近找到我们的智能柜，通过微信扫码就能轻松租赁到孩子心仪的玩具。相较于邮寄方式，更加便利的同时也节省了时间成本。让孩子在安全、健康的环境下成长。从小培养“分享”精神，给他们童年留下美好的回忆。<br>
+<span class="bold">1、共享绘本馆:我们参考HIGHSCOPE的《0-6岁儿童发展评价量表》，对不同年龄阶段孩子的身体发展、心理发展、智能发展/智力发展、社会适应、学习习惯做了专业分析。同时将现有的数万种绘本进行了系统分类，其中不乏大量的英语绘本，通过学习可以让孩子在快乐的氛围下，提前接触到这门国际语言。进而提升孩子的思维能力和语言表达能力。<br>
+2、共享玩具屋:参考教育部《3-6岁幼儿学习与发展指南》，根据不同阶段孩子的需求将现有数千种玩具进行了专业分类，均选择于国内外口碑比较好的品牌。给孩子打造安全、绿色的畅玩空间，因而进一步提升孩子的学习兴趣、逻辑思维能力和动手能力。而且还帮助家长解决了闲置玩具处理难的问题，让孩子每天都有新玩具，满足他们的猎奇心理。<br>
+3、共享乐高屋：乐高相较于传统普通积木而言，更受小朋友的喜爱。但是价钱较高且出新的速度过快，导致家长无法买全所有套装。在我们这里您可以找到全系列乐高套装，通过拼搭过程能锻炼孩子手眼协调和思维能力，从而起到智力开发作用。让您花更少的钱，就能玩儿遍所有乐高。<br>
+4、共享电动车：对于儿童来说是一个体积比较大的益智玩具。在言语练习、协调身体机能、刺激官能发展、宣泄情绪方面都有很大的帮助。但是由于体积太大，所以给一些家庭会带来不便。“共享电动车”借还方便，为您节省家用空间。而且可以提升孩子的社交能力，让他们找到志同道合的车友。“豪车”品类繁多，奥迪，宝马，奔弛随您的孩子挑选，绝对可以让他成为小区一道亮丽的风景线。</span>
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="box-title" @click="see" id="t2"><img class="arrimg" src="http://static.fengchaohuzhu.com/baby/static/arrow.png" alt="">我们的特色</div>
+            <div class="box-content bold" v-show="t2">
+安全保障：国际幼儿园标准的消毒产品、每天紫外线消毒<br>
+不限次共享：会员有效期内不限次数更换<br>
+每月更新：每月定期更新产品<br>
+到家服务 ：手机操作、家门口取家门口还<br>
+学习：读书计划
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-title" @click="see" id="t3"><img class="arrimg" src="http://static.fengchaohuzhu.com/baby/static/arrow.png" alt="">会员权益</div>
+            <div class="box-content" v-show="t3">
+<span class="bold">目前小伴共享推出了包月和包年会员，绘本一次三本不限次畅读；玩具一次一个不限次畅玩；乐高最全最新随心玩；电动车、摇摇车不限次不限时玩。</span><br>
+绘本：<br>
+      选择需要办理的畅读会员类型：<span class="bold red">99元/月卡、699元/年卡</span>。<br>
+玩具：<br>
+      选择需要办理的畅玩会员类型，<span class="bold red">99元/月卡、699元/年卡</span>。<br>
+乐高：<br>
+      选择需要租借的乐高，支付对应的乐高押金（类型不同押金不同，退还乐高后即可退还押金），归还乐高后付租金。<br>
+租金算法：少于或等于7天=首周租金<br>
+大于7天=首周租金+（租借天数-7）*对应乐高日租金
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                close_src: 'http://static.fengchaohuzhu.com/baby/static/arrow.png',
+                open_src: 'http://static.fengchaohuzhu.com/baby/static/arrow.png',
+                t0: false,
+                t1: false,
+                t2: false,
+                t3: false,
+                t4: false,
+                t5: false,
+                t6: false,
+                t7: false,
+                t8: false,
+                t9: false,
+                t10: false,
+                t11: false
+            },
+            methods: {
+                see: function (e) {
+                    var target = e.target;
+                    var id = target.id;
+                    this[id] = !this[id];
+                    if (this[id]) {
+                        target.className = "box-title border-b"
+                        target.children[0].className = "arrimg rotate90"
+                    } else {
+                        target.className = "box-title"
+                        target.children[0].className = "arrimg"
+                    }
+                }
+            }
+        })
+	</script>
+  </body>
+</html>
