@@ -9,8 +9,10 @@
     <meta name="format-detection" content="telephone=no">
     <title>皇庭</title>
     <script src="vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <style type="text/css">
-        html, body, input, div, span {margin:0;padding:0;}
+        html, body, input, div, span, button {margin:0;padding:0;}
        
         .page {
             background: #efeff4;
@@ -94,33 +96,12 @@
             color: #CF0000;
             font-weight: 700;
         }
-        .table-1 {
-            text-align: center;
-            width: 140px;
-            border: 1px solid #da9f80;
+        .refresh-btn {
+            width: 34px;
+            height: 18px;
+            display: inline-block;
         }
-        .th-bg {
-            background: #f8dac6;
-        }
-        .th , .td{
-            border-right: 1px solid #da9f80;
-            border-bottom: 1px solid #da9f80;
-        }
-        .disflex {
-            display: -webkit-flex;
-        }
-        .flex1 {
-            flex: 1;
-        }
-        .flex2 {
-            flex: 2;
-        }
-        .flex3 {
-            flex: 3;
-        }
-        .flex4 {
-            flex: 4;
-        }
+        
         
     </style>
   </head>
@@ -142,29 +123,81 @@
                 <span class="span-01">重庆时时彩【第20171211106期】</span><span class="span-01 red">今天輸贏： 0</span><span class="span-01">20171211105期 开奖号码 </span>
             </div>
             <div style="margin-bottom:7px;">
-                <span class="span-01 red">整合</span><span class="span-01">距离封盘：09:32</span><span class="span-01">距离开奖：02:08 </span><span class="span-01">6秒 更新</span>
+                <span class="span-01 red">整合</span><span class="span-01">距离封盘：09:32</span><span class="span-01">距离开奖：02:08 </span><span class="span-01">6秒 <button class="refresh-btn">更新</button></span>
             </div>
             <div class="span-01">
-                <span class="tz_type">投注类型：</span><span class="tz_type-btn select-tz_type-btn">快捷</span><span class="tz_type-btn">一般</span>
+                <span class="tz_type">投注类型：</span><span @click="select_type(1)" :class="['tz_type-btn', type_index == 1 ? 'select-tz_type-btn' : '']">快捷</span><span :class="['tz_type-btn', type_index == 2 ? 'select-tz_type-btn' : '']" @click="select_type(2)">一般</span>
             </div>
         </div>
 
-        <div class="table-1">
-            <div class="table-title th th-bg">第一球</div>
-            <div class="disflex th-bg">
-                <span class="flex1 th">号码</span>
-                <span class="flex4 th">赔率</span>
-            </div>
-            <div class="disflex">
-                <span class="flex1 td">号码</span>
-                <span class="flex4 td">赔率</span>
-            </div>
-            <div class="disflex">
-                <span class="flex1 td">号码</span>
-                <span class="flex4 td">赔率</span>
-            </div>
-
+        <table class="Ball_List" v-for="t_item in table_list" style="float:left;" cellspacing="1" cellpadding="0" width="140" border="0">
+          <tbody>
+            <tr>
+                <td colspan="3" class="td_caption_1" id="pc_301">{{t_item.text}}</td>
+            </tr>
+            <tr>
+                <td class="td_caption_1" width="32">号码</td>
+                <td class="td_caption_1" :width="[type_index == 2 ? 54 : 108]">赔率</td>
+                <td class="td_caption_1" v-if="type_index == 2" width="54">金额</td>
+            </tr>
+            <tr class="Ball_tr_H" v-for="tab_item in tab_list">
+                <td v-if="words.indexOf(tab_item.no) > -1">{{tab_item.no}}</td>
+                <td v-else :class="'No_'+tab_item.no"></td>
+                <td>
+                    <span id="MoneyCheckBox" class="multiple_Red">{{tab_item.num}}</span>
+                    <input type="checkbox" v-if="type_index == 2" v-model="t_item.checkbox_arr" :value="tab_item.no">
+                </td>
+                <td v-if="type_index == 2">
+                    <input type="text" size="5" :disabled="t_item.checkbox_arr.indexOf(tab_item.no) > -1" maxlength="9" onfocus="this.className='inp1m'" class="inp1">
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <!--总和-龙虎和-->
+        <div style="float:left;">
+            <table class="Ball_List" cellspacing="1" cellpadding="0" width="158" border="0">
+            <tbody>
+                <tr class="Ball_tr_H">
+                    <td colspan="3" class="td_caption_1" id="pc_301">总和-龙虎和</td>
+                </tr>
+                <tr class="Ball_tr_H">
+                    <td class="td_caption_1" width="50">号码</td>
+                    <td class="td_caption_1" :width="[type_index == 2 ? 54 : 108]">赔率</td>
+                    <td class="td_caption_1" v-if="type_index == 2" width="54">金额</td>
+                </tr>
+                <tr class="Ball_tr_H" v-for="tab_item in tab_list_num">
+                    <td>{{tab_item.no}}</td>
+                    <td>
+                        <span id="MoneyCheckBox" class="multiple_Red">{{tab_item.num}}</span>
+                        <input type="checkbox" v-if="type_index == 2" v-model="t_item.checkbox_arr" :value="tab_item.no">
+                    </td>
+                    <td v-if="type_index == 2">
+                        <input type="text" size="5" :disabled="t_item.checkbox_arr.indexOf(tab_item.no) > -1" maxlength="9" onfocus="this.className='inp1m'" class="inp1">
+                    </td>
+                </tr>
+            </tbody>
+            </table>          
+            <table class="Ball_List" cellspacing="1" cellpadding="0" width="158" border="0">
+            <tbody>
+                <tr class="Ball_tr_H">
+                    <td colspan="3" class="td_caption_1" id="pc_301">
+                        <input type="radio"><label for="">前三</label><input type="radio"><label for="">中三</label><input type="radio"><label for="">后三</label>
+                    </td>
+                </tr>
+                <tr class="Ball_tr_H" v-for="tab_item in tab_list_radio">
+                    <td width="50">{{tab_item.no}}</td>
+                    <td :width="[type_index == 2 ? 54 : 108]">
+                        <span id="MoneyCheckBox" class="multiple_Red">{{tab_item.num}}</span>
+                        <input type="checkbox" v-if="type_index == 2" v-model="t_item.checkbox_arr" :value="tab_item.no">
+                    </td>
+                    <td width="54" v-if="type_index == 2">
+                        <input type="text" size="5" :disabled="t_item.checkbox_arr.indexOf(tab_item.no) > -1" maxlength="9" onfocus="this.className='inp1m'" class="inp1">
+                    </td>
+                </tr>
+            </tbody>
+            </table>          
         </div>
+
 
 
     </div>
@@ -172,12 +205,145 @@
         var app = new Vue({
             el: '#app',
             data: {
-                tab_index: 1
+                tab_index: 1, //顶部tab 选中项
+                type_index: 1, //快捷/一般 选中项
+                words: ['大', '小', '单', '双'],
+                tab_list: [  //表格数据
+                    {
+                        no: '大',
+                        num: 1.94
+                    },
+                    {
+                        no: '小',
+                        num: 1.94
+                    },
+                    {
+                        no: '单',
+                        num: 1.94
+                    },
+                    {
+                        no: '双',
+                        num: 1.94
+                    },
+                    {
+                        no: 0,
+                        num: 1.94
+                    },
+                    {
+                        no: 1,
+                        num: 1.94
+                    },
+                    {
+                        no: 2,
+                        num: 1.94
+                    },
+                    {
+                        no: 4,
+                        num: 1.94
+                    },
+                    {
+                        no: 5,
+                        num: 1.94
+                    },
+                    {
+                        no: 6,
+                        num: 1.94
+                    },
+                    {
+                        no: 7,
+                        num: 1.94
+                    },
+                    {
+                        no: 8,
+                        num: 1.94
+                    },
+                    {
+                        no: 9,
+                        num: 1.94
+                    },
+                ],
+                tab_list_num: [  //表格数据
+                    {
+                        no: '总和大',
+                        num: 1.94
+                    },
+                    {
+                        no: '总和小',
+                        num: 1.94
+                    },
+                    {
+                        no: '总和单',
+                        num: 1.94
+                    },
+                    {
+                        no: '总和双',
+                        num: 1.94
+                    },
+                    {
+                        no: '龙',
+                        num: 1.94
+                    },
+                    {
+                        no: '虎',
+                        num: 1.94
+                    },
+                    {
+                        no: '和',
+                        num: 1.94
+                    }
+                ],
+                tab_list_radio: [  //表格数据
+                    {
+                        no: '豹子',
+                        num: 1.94
+                    },
+                    {
+                        no: '顺子',
+                        num: 1.94
+                    },
+                    {
+                        no: '对子',
+                        num: 1.94
+                    },
+                    {
+                        no: '半顺',
+                        num: 1.94
+                    },
+                    {
+                        no: '杂六',
+                        num: 1.94
+                    }
+                ],
+                table_list: [
+                    {
+                        text: '第一球',
+                        checkbox_arr: []
+                    },
+                    {
+                        text: '第二球',
+                        checkbox_arr: []
+                    },
+                    {
+                        text: '第三球',
+                        checkbox_arr: []
+                    },
+                    {
+                        text: '第四球',
+                        checkbox_arr: []
+                    },
+                    {
+                        text: '第五球',
+                        checkbox_arr: []
+                    },
+                ],
             },
             methods: {
                 click_topbar: function(i) {
-                    this.tab_index = i
-                }
+                    this.tab_index = i;
+                },
+                select_type: function(i) {
+                    this.type_index = i;
+                },
             }
         })
 	</script>

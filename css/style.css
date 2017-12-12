@@ -1,0 +1,148 @@
+.align-c{text-align:center;}
+.skin_brown{width:700px;}
+.skin_brown .elem_amount .t,.skin_brown .elem_type .t{color:#511E02;}
+.skin_brown .elem_type .btnnav{background:url(/member/images/btn.png) no-repeat -38px -19px;}
+.skin_brown .elem_type .on{background-position:0 -19px;}
+.elem_btn{display:inline-block;text-align:center;color:#fff;height:18px;line-height:18px;_line-height:19px;cursor:pointer;}
+.elem_type,.elem_multiple{height:26px;}
+.elem_type .t{color:#3163AC;font-weight:700;vertical-align:top;}
+.elem_type .btnnav{width:38px;height:21px;margin-right:1px;line-height:18px;color:#666;}
+.elem_type .on,.elem_multiple .t{color:#CF0000;font-weight:700;}
+.elem_amount{padding-left:20px;text-align:left;}
+.dvclrr{padding-left:48px;padding-top:3px;text-align:left;}
+.elem_amount .t{color:#3163AC;font-weight:700;}
+.elem_amount .elem_btn,.elem_amount input{margin:0 3px;}
+.elem_amount .elem_amount_input_quick{width:65px;}
+.elem_multiple .label{cursor:pointer;}
+#LSL_Http{width:700px;}
+.tableGuo{border-collapse:collapse}
+.td1G{border-right:1px solid #e9ba84;background-color:#fdf8f2}
+.Ball_tr_H td{cursor:pointer}
+.Ball_tr_onBg td{background-color:#ffc214;}
+.Ball_tr_overBg td{background-color:#ffd094;}
+.tdchip b{display:inline-block;margin-left:10px;width:46px;height:47px;background:url(/member/images/chipbg.png) no-repeat;cursor:pointer}
+.tdchip .cp01{background-position:0 0;}
+.tdchip .cp02{background-position:0 -47px;}
+.tdchip .cp03{background-position:0 -94px;}
+.tdchip .cp04{background-position:0 -141px;}
+.tdchip .cp05{background-position:0 -188px;}
+.tdchip .cp06{background-position:0 -235px;}
+.tdchip .cp07{background-position:0 -282px;}
+.tdchip .cp08{background-position:0 -329px;}
+/*球的样式*/
+.No_0, .No_1, .No_2, .No_3, .No_4, .No_5, .No_6, .No_7, .No_8, .No_9 {
+	background-image: url(../images/ball_3.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.No_0 {
+	background-position:0 0px
+}
+.No_1 {
+    background-position:0 -27px
+}
+.No_2 {
+    background-position:0 -54px
+}
+.No_3 {
+    background-position:0 -81px
+}
+.No_4 {
+    background-position:0 -108px
+}
+.No_5 {
+    background-position:0 -135px
+}
+.No_6 {
+    background-position:0 -162px
+}
+.No_7 {
+    background-position:0 -189px
+}
+.No_8 {
+    background-position:0 -216px
+}
+.No_9 {
+    background-position:0 -243px
+}
+/*cl_m.css*/
+.qqbox a:link {
+    color: #000;
+    text-decoration: none;
+}
+.qqbox a:visited {
+    color: #000;
+    text-decoration: none;
+}
+.qqbox a:hover {
+    color: #f80000;
+    text-decoration: underline;
+}
+.qqbox a:active {
+    color: #f80000;
+    text-decoration: underline;
+}
+
+.qqbox{
+    width:200px;
+    height:auto;
+    overflow:hidden;
+    position:absolute;
+    right:0;
+    top:100px;
+    color:#000000;
+    font-size:12px;
+    letter-spacing:0px;
+}
+.qqlv{
+    width:25px;
+    overflow:hidden;
+    position:relative;
+	cursor:pointer;
+    float:right;
+    z-index:50px;
+}
+.qqkf{
+    width:185px;
+    height:auto;
+    overflow:hidden;
+    right:0;
+    top:0;
+    z-index:99px;
+    border:6px solid #e9ba84;
+    background:#fff;
+}
+.qqkfbt{
+    width:188px;
+    height:22px;
+    overflow:hidden;
+    background:#e9ba84;
+    line-height:22px;
+    font-weight:bold;
+    color:#fff;
+    position:relative;
+    border:1px solid #fff;
+    cursor:pointer;
+    text-align:center;
+}
+.qqkfhm{
+    width:112px;
+    height:22px;
+    overflow:hidden;
+    line-height:22px;
+    padding-right:8px;
+    position:relative;
+    margin:3px 0;
+}
+.bgdh{
+    width:102px;
+    padding-left:10px;
+}
+.l_td{
+	height:20px;
+}
+.btn{
+	height:20px;
+	border:1px solid #CCC;
+	background:#D8E8FE;}
