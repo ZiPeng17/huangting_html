@@ -20,7 +20,7 @@
 .Ball_tr_H td{cursor:pointer}
 .Ball_tr_onBg td{background-color:#ffc214;}
 .Ball_tr_overBg td{background-color:#ffd094;}
-.tdchip b{display:inline-block;margin-left:10px;width:46px;height:47px;background:url(/member/images/chipbg.png) no-repeat;cursor:pointer}
+.tdchip span{display:inline-block;margin-left:10px;width:46px;height:47px;background:url(../images/chipbg.png) no-repeat;cursor:pointer}
 .tdchip .cp01{background-position:0 0;}
 .tdchip .cp02{background-position:0 -47px;}
 .tdchip .cp03{background-position:0 -94px;}

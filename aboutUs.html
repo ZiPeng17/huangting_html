@@ -101,8 +101,19 @@
             height: 18px;
             display: inline-block;
         }
-        
-        
+        /* 投注部分 */
+        .tz-money, .chuqiulv {
+            width: 700px;
+            text-align: center;
+        }
+        .chuqiulv {
+            border: 1px #e9ba84 solid;
+        }
+        .chuqiulv span {
+            display: inline-block;
+            width: 52px;
+            border-right: 1px #e9ba84 solid;
+        }
     </style>
   </head>
   <body>
@@ -154,7 +165,7 @@
           </tbody>
         </table>
         <!--总和-龙虎和-->
-        <div style="float:left;">
+        <div>
             <table class="Ball_List" cellspacing="1" cellpadding="0" width="158" border="0">
             <tbody>
                 <tr class="Ball_tr_H">
@@ -195,7 +206,60 @@
                     </td>
                 </tr>
             </tbody>
-            </table>          
+            </table> 
+            <!--投注部分 -->
+            <div class="tz-money">
+                <div class="tdchip" style="display:inline-block;width:56%;">
+                    <span class="cp01"></span>
+                    <span class="cp02"></span>
+                    <span class="cp03"></span>
+                    <span class="cp04"></span>
+                    <span class="cp05"></span>
+                </div>
+                <div class="align-c" style="display:inline-block;width:43%;">
+                    <span id="M_ConfirmClew">
+                        <div class="elem_amount">
+                            <strong class="t kuaijie">金额</strong><span class="kuaijie"><input id="TextMoney" class="elem_amount_input elem_amount_input_quick" onkeypress="digitOnly(event)" maxlength="9" name=""></span><input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" value="下 注" type="submit" name="confirm"><input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="ResetTdOnSelected();" value="重 置" type="button" name="reset">
+                        </div>
+                    </span>
+                    <div class="dvclrr">
+                        <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="clearChip()" value="清 空" type="button" name="clearBtn">&nbsp;&nbsp;<span style="COLOR: red">注:多次点击筹码，金额将累加！</span>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- 出球率 -->
+            <div class="chuqiulv">
+                <div class="Ball_List td_caption_1">出球率</div>
+                <div class="chuqiulv-tab">
+                    <span v-for="(item, index) in type_list" @click="setele_type(index)" :class="[index == bottom_type_index ? 'td_caption_2' : 'td_caption_1']">{{item}}</span>
+                </div>
+                <table width="696" border="0" cellpadding="1" cellspacing="1" class="Ball_List">
+                        <tbody><tr class="Ball_tr_H">
+                        <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b><br><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b><br><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b><br><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b><br><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b><br><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b><br><b><font color="#0000ff">小</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#ff0000">大</font></b></td>
+          <td align="center" width="32" valign="top"><b><font color="#0000ff">小</font></b><br><b><font color="#0000ff">小</font></b></td>
+            
+                        </tr>
+                      </tbody></table>
+            </div>
         </div>
 
 
@@ -207,7 +271,9 @@
             data: {
                 tab_index: 1, //顶部tab 选中项
                 type_index: 1, //快捷/一般 选中项
+                bottom_type_index: 0, //底部类型选中项
                 words: ['大', '小', '单', '双'],
+                type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],
                 tab_list: [  //表格数据
                     {
                         no: '大',
@@ -343,6 +409,9 @@
                 },
                 select_type: function(i) {
                     this.type_index = i;
+                },
+                setele_type: function(i) {
+                    this.bottom_type_index = i;
                 },
             }
         })

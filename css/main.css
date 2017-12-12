@@ -27,7 +27,7 @@ a:hover, .a1{
 }
 
 .inp1, .inp1m, .btn2, .btn2m, .btn3, .btn3m
-{background-image:url(/member/images/frame1.gif);background-repeat:no-repeat}
+{background-image:url(../images/frame1.gif);background-repeat:no-repeat}
 .inp1, .inp1m{border:1px solid #b0b0b0;height:20px;height/**/:18px;padding-top:1px;padding-left:1px!important;padding-left:2px;color:#000}
 .inp1{background-position:-0px 0;color:#000}
 .inp1m{border:1px solid #A7BBD3;background-position:-476px 0;color:#000;border-color: #FF8800;}
@@ -44,7 +44,7 @@ a:hover, .a1{
 	/*background-color:#FF9966;border:0px #FF9966 solid;*/
 	/*background-color:#c1dad7;border:0px #c1dad7 solid;*/
 	background-color:#e9ba84;
-	border:0px #e9ba84 solid;
+	border: 1px #e9ba84 solid;
 	position: relative;
 }
 .Ball_tr_H {
@@ -57,14 +57,14 @@ a:hover, .a1{
 	background-color: #fdf8f2;
 }
 .td_caption_1 {
-	background-image: url(/member/images/bg.jpg);
+	background-image: url(../images/bg.jpg);
 	line-height: 24px;
 	text-align:center;
 	color:#4a1a04;
 	font-weight: bold;
 }
 .td_caption_2 {
-	background-image: url(/member/images/bg2.jpg);
+	background-image: url(../images/bg2.jpg);
 	line-height: 22px;
 	text-align:center;
 	vertical-align: 10%;
