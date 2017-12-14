@@ -8,7 +8,12 @@
     </div>
     <div v-else>
       <lottery-info :lottery="lottery" :title="title"></lottery-info>
-      <total-table></total-table>
+      <div v-if="currentIndex === 0">
+        <total-table></total-table>
+      </div>
+      <div v-else-if="currentIndex === 1">
+        <sided-table></sided-table>
+      </div>
     </div>
   </div>
 </template>
@@ -17,6 +22,7 @@
 import Tab from './components/tab/tab'
 import lotteryInfo from './components/lottery-info/lottery-info'
 import totalTable from './components/total-table/total-table'
+import sidedTable from './components/sided-table/sided-table'
 import topTab from './components/top-tab/top-tab'
 import todayOrder from './components/today-order/today-order'
 import betDetail from './components/bet-detail/bet-detail'
@@ -33,6 +39,7 @@ export default {
         endTime: '09:10',
         startTime: '01:20',
       },
+      currentIndex : 0,
       show_top_menu: {
         state: false,
         currIndex: 2
@@ -40,8 +47,9 @@ export default {
     }
   },
   methods:{
-    selectText(val) {
+    selectText(val,index) {
       this.title = val
+      this.currentIndex = index
       this.show_top_menu.state = false;
     },
     selectTopText(val, num) {
@@ -57,7 +65,8 @@ export default {
     topTab,
     todayOrder,
     betDetail,
-    totalTable
+    totalTable,
+    sidedTable
   }
 }
 </script>

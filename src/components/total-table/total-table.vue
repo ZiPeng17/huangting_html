@@ -2,7 +2,7 @@
   <div class="total-table">
     <div class="span-01">
       <span class="tz_type">投注类型：</span><span @click="select_type(1)"
-                                              :class="['tz_type-btn', type_index == 1 ? 'select-tz_type-btn' : '']">快捷</span><span
+                                              :class="['tz_type-btn', type_index === 1 ? 'select-tz_type-btn' : '']">快捷</span><span
       :class="['tz_type-btn', type_index == 2 ? 'select-tz_type-btn' : '']" @click="select_type(2)">一般</span>
     </div>
     <div class="clearfix">
@@ -15,31 +15,12 @@
       </table>
       <div class="right">
         <ball-list :width="180" :info="tab_list_num" :type_index="type_index"></ball-list>
-        <ball-list :width="180" :info="tab_list_radio" :type_index="type_index" :thShow="false"></ball-list>
+        <ball-list :width="180" :info="tab_list_radio" :type_index="type_index" :thShow="false" :radioShow="true"></ball-list>
       </div>
     </div>
-    <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum"></select-ball>
+    <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
-    <div class="tz-money">
-      <div class="align-c">
-        <div id="M_ConfirmClew">
-          <div class="elem_amount">
-            <strong class="t kuaijie">复选框快速下注金额</strong>
-            <span class="kuaijie">
-              <input id="TextMoney" class="elem_amount_input elem_amount_input_quick" onkeypress="digitOnly(event)" maxlength="9" name="">
-            </span>
-            <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" value="传送金额" type="submit" name="confirm">
-
-          </div>
-        </div>
-        <div class="dvclrr">
-          <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="clearChip()" value="清 空" type="button" name="clearBtn">
-          <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="ResetTdOnSelected();" value="重 置" type="button" name="reset">
-          <span style="COLOR: red">注:多次点击筹码，金额将累加！</span>
-        </div>
-      </div>
-
-    </div>
+    <tz-money @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney" :type_index="type_index"></tz-money>
     <!-- 出球率 -->
     <div class="chuqiulv">
       <div class="Ball_List td_caption_1">出球率</div>
@@ -92,6 +73,7 @@
 <script>
   import ballList from '../ball-list/ball-list'
   import selectBall from '../select-ball/select-ball'
+  import tzMoney from '../tz-money/tz-money'
   export default {
     data() {
       return {
@@ -462,17 +444,17 @@
 
         },
         type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],
-        selectBall: -1,  //选择第几个球下标
+        selectBall: -1,   //选择第几个球下标
         selectNum: -1,    // 选择的数字下标
-        selectTab: [],   // 选中的球列表集合
-        selectChec: [],    //选中的数字列表集合
-        bottom_type_index: 0
+        selectTab: [],    // 选中的球列表集合
+        selectChec: [],   //选中的数字列表集合
+        money: '',        //下注金额
+        bottom_type_index: 0,
       }
     },
     methods: {
       select_type: function (i) {
         this.type_index = i;
-
       },
       select_bottom_type(index) {
         this.bottom_type_index = index
@@ -483,28 +465,46 @@
       selectThisNum(arr) {
        this.selectChec = arr
       },
+      sendMoney(val) {
+        this.money = val
+        if (this.selectTab.length && this.selectChec.length) {
+          this.selectTab.forEach((num) => {
+            this.$refs.ballList[num].inputMoney(this.selectChec,this.money)
+          })
+          this.$refs.tzMoney.reset()
+          this.$refs.selectBall.removeClass()
+          this.selectTab = []
+          this.selectChec = []
+        }else {
+          alert('请选择需要填写下注金额的复选框!!!')
+        }
+      },
+      clearChip() {
+        this.$refs.ballList.forEach((el,index) => {
+          this.$refs.ballList[index].clearInput()
+        })
+      },
       _check() {
         this.$refs.ballList.forEach((el,index) => {
           this.$refs.ballList[index]._checkInit()
         })
         if (this.selectTab.length && this.selectChec.length) {
           this.selectTab.forEach((num) => {
-            this.$refs.ballList[num].selectChecked(this.selectChec)
+            this.$refs.ballList[num].selectChecked(this.selectChec,this.money)
           })
         }
       }
     },
     components: {
       ballList,
-      selectBall
+      selectBall,
+      tzMoney
     },
     watch: {
       selectChec() {
-        console.log(this.selectChec)
          this._check()
       },
       selectTab() {
-        console.log(this.selectTab)
         this._check()
       },
       type_index(val) {
@@ -564,9 +564,6 @@
     color: #CF0000;
     font-weight: 700;
   }
-
-
-
   /* 出球率*/
   .chuqiulv {
     width: 700px;
@@ -603,44 +600,5 @@
   .chuqiulv table tr th, .chuqiulv table tr td {
     border: 1px solid #e9ba84;
     vertical-align: middle
-  }
-  /*下注*/
-  .tz-money{
-    padding-top:20px;
-    width:700px;
-    text-align: center;
-  }
-  .dvclrr{
-    padding-top:15px;
-    padding-bottom:15px;
-  }
-  #TextMoney{
-    width:80px;
-  }
-  .btn2, .btn2m {
-    width: 66px;
-    height: 17px;
-    border: 0px none;
-    padding-top: 3px !important;
-    padding-bottom: 2px !important;
-    margin-bottom: 0;
-    color: #0C3E09;
-    background-color: transparent;
-    background-position: -943px 0;
-    background-image: url(../../../static/image/frame1.gif);
-  }
-  .btn2 {
-    width: 66px;
-    background-position: -943px 0;
-  }
-  .btn2m{
-    border:  none;
-    padding-top: 3px;
-    padding-bottom: 2px!important;
-    background-image: url(../../../static/image/frame1.gif);
-    margin-bottom: 0;
-    color: #0C3E09;
-    background-color: transparent;
-    background-position: -1010px 0;
   }
 </style>

@@ -23,14 +23,13 @@
           {text: '第二球'},
           {text: '第三球'},
           {text: '第四球'},
-          {text: '第五球'},
-          {text: '牛牛'}
+          {text: '第五球'}
         ]
       }
     },
     methods:{
       selectItem(text,index){
-        this.$emit('selectText', text)
+        this.$emit('selectText', text, index)
         this.currentIndex = index
       }
     }

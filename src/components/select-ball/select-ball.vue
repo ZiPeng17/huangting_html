@@ -1,17 +1,23 @@
 <template>
-  <div class="select-ball">
+  <div class="select-ball" v-if="type_index === 2">
     <div class="title left">快速<br>选择</div>
     <div class="balls">
-      <span v-for="(ball,index) in balls" @click="selectThisBall(index)">{{ball.text}}</span>
+      <span v-for="(ball,index) in balls" @click="selectThisBall(index)" ref="balls">{{ball.text}}</span>
     </div>
     <div class="select-num">
-      <span v-for="(num,index) in nums" @click="selectThisNum(index)">{{num.num}}</span>
+      <span v-for="(num,index) in nums" @click="selectThisNum(index)" ref="nums">{{num.num}}</span>
     </div>
 </div>
 </template>
 
 <script>
     export default {
+      props: {
+        type_index: {
+          type: Number,
+          default: 2
+        }
+      },
       data() {
         return {
           balls: [
@@ -46,8 +52,6 @@
           }else {
             let _index = this.selectTab.indexOf(index)
             this.selectTab.splice(_index,1)
-
-
           }
           this.$emit('selectThisBall', this.selectTab)
         },
@@ -62,6 +66,25 @@
           }
           this.$emit('selectThisNum', this.selectChec)
         },
+        _reset() {
+          this.selectTab = []
+          this.selectChec = []
+        },
+        removeClass() {
+          let balls = this.$refs.balls
+          let nums = this.$refs.nums
+          balls.forEach((el) => {
+            if(this._hasClass(el, 'sRed')) {
+              this._addClass(el, 'sRed')
+            }
+          })
+          nums.forEach((el) => {
+            if(this._hasClass(el, 'sRed')) {
+              this._addClass(el, 'sRed')
+            }
+          })
+          this._reset()
+        },
         _addClass(el, className) {
           let newClass = el.className.split(' ')
           if (this._hasClass(el, className)) {
@@ -72,7 +95,6 @@
           }
           el.className = newClass.join(' ')
         },
-
         _hasClass(el, className) {
           let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
           return reg.test(el.className)
