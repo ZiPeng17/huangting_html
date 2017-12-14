@@ -5,6 +5,9 @@
     <div v-if="show_top_menu.state">
       <today-order v-if="show_top_menu.currIndex === 2"></today-order>
       <bet-detail v-else-if="show_top_menu.currIndex === 3"></bet-detail>
+      <jsTable v-else-if="show_top_menu.currIndex === 4"></jsTable>
+      <history-lottery v-else-if="show_top_menu.currIndex === 5"></history-lottery>
+      <rule v-else-if="show_top_menu.currIndex === 6"></rule>
     </div>
     <div v-else>
       <lottery-info :lottery="lottery" :title="title"></lottery-info>
@@ -26,6 +29,9 @@ import sidedTable from './components/sided-table/sided-table'
 import topTab from './components/top-tab/top-tab'
 import todayOrder from './components/today-order/today-order'
 import betDetail from './components/bet-detail/bet-detail'
+import jsTable from './components/jsTable/jsTable'
+import historyLottery from './components/history-lottery/history-lottery'
+import rule from './components/rule/rule'
 
 import '../static/css/reset.css'
 export default {
@@ -66,7 +72,10 @@ export default {
     todayOrder,
     betDetail,
     totalTable,
-    sidedTable
+    sidedTable,
+    jsTable,
+    historyLottery,
+    rule
   }
 }
 </script>
