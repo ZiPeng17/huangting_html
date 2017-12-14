@@ -42,3 +42,43 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+/*球的样式*/
+.No_0, .No_1, .No_2, .No_3, .No_4, .No_5, .No_6, .No_7, .No_8, .No_9 {
+  background-image: url(../image/ball_3.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.No_0 {
+  background-position:0 0px
+}
+.No_1 {
+  background-position:0 -27px
+}
+.No_2 {
+  background-position:0 -54px
+}
+.No_3 {
+  background-position:0 -81px
+}
+.No_4 {
+  background-position:0 -108px
+}
+.No_5 {
+  background-position:0 -135px
+}
+.No_6 {
+  background-position:0 -162px
+}
+.No_7 {
+  background-position:0 -189px
+}
+.No_8 {
+  background-position:0 -216px
+}
+.No_9 {
+  background-position:0 -243px
+}

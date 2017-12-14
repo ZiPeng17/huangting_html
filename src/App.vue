@@ -8,6 +8,7 @@
     </div>
     <div v-else>
       <lottery-info :lottery="lottery" :title="title"></lottery-info>
+      <total-table></total-table>
     </div>
   </div>
 </template>
@@ -15,6 +16,7 @@
 <script>
 import Tab from './components/tab/tab'
 import lotteryInfo from './components/lottery-info/lottery-info'
+import totalTable from './components/total-table/total-table'
 import topTab from './components/top-tab/top-tab'
 import todayOrder from './components/today-order/today-order'
 import betDetail from './components/bet-detail/bet-detail'
@@ -54,7 +56,8 @@ export default {
     lotteryInfo,
     topTab,
     todayOrder,
-    betDetail
+    betDetail,
+    totalTable
   }
 }
 </script>
@@ -65,5 +68,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 12px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 </style>
