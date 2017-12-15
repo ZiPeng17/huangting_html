@@ -10,30 +10,30 @@
       <rule v-else-if="show_top_menu.currIndex === 6"></rule>
     </div>
     <div v-else>
-      <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @todayTime="todayTime"></lottery-info>
+      <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin"></lottery-info>
       <div v-if="currentIndex === 0">
-        <total-table :todayTime="todayTime"></total-table>
+        <total-table :todayTime="flag"></total-table>
       </div>
       <div v-else-if="currentIndex === 1">
-        <sided-table :todayTime="todayTime"></sided-table>
+        <sided-table :todayTime="flag"></sided-table>
       </div>
       <div v-else-if="currentIndex === 2">
-        <one-to-five :todayTime="todayTime"></one-to-five>
+        <one-to-five :todayTime="flag"></one-to-five>
       </div>
       <div v-else-if="currentIndex === 3">
-        <first-ball :todayTime="todayTime"></first-ball>
+        <first-ball :todayTime="flag"></first-ball>
       </div>
       <div v-else-if="currentIndex === 4">
-        <second-ball :todayTime="todayTime"></second-ball>
+        <second-ball :todayTime="flag"></second-ball>
       </div>
       <div v-else-if="currentIndex === 5">
-        <three-ball :todayTime="todayTime"></three-ball>
+        <three-ball :todayTime="flag"></three-ball>
       </div>
       <div v-else-if="currentIndex === 6">
-        <four-ball :todayTime="todayTime"></four-ball>
+        <four-ball :todayTime="flag"></four-ball>
       </div>
       <div v-else-if="currentIndex === 7">
-        <five-ball :todayTime="todayTime"></five-ball>
+        <five-ball :todayTime="flag"></five-ball>
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
       lottery:{
         thisPhase: '20171213005',
         prevPhase: '20171213004',
-        sealingTime: 600,
+        lotteryTime: 100,
         endTime: '09:10',
         startTime: '01:20',
       },
@@ -75,11 +75,17 @@ export default {
         state: false,
         currIndex: 2
       },
-      todayTime: false   //当前的时间是否开盘  false代表今天已经封盘   开盘时间07 ---  16  点
+      todayTime: false,   //当前的时间是否开盘  false代表今天已经封盘   开盘时间07 ---  16  点
+      timeFlag: true      //封盘倒计时结束开始封盘  true 代表可以封盘  默认开盘状态
     }
   },
   created() {
     this.beginTime()
+  },
+  computed: {
+    flag() {
+      return this.todayTime && this.timeFlag
+    }
   },
   methods:{
     selectText(val,index) {
@@ -92,10 +98,16 @@ export default {
       this.show_top_menu.currIndex = num;
       this.top_title = val
     },
+    timeOver(bool) {
+      this.timeFlag = bool
+    },
+    timeBegin(bool) {
+      this.timeFlag = bool
+    },
     beginTime() {
       let date = new Date()
       let hour = date.getHours()
-      if(hour >= 7 || hour <= 16) {
+      if(hour >= 7 && hour <= 16) {
         this.todayTime = true
       }else {
         this.todayTime = true

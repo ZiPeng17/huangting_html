@@ -7,7 +7,7 @@
       <span class="span-01 red">{{title}}</span>
       <span v-if="todayTime" class="span-01">距离封盘：{{sealingTime}}</span>
       <span v-else class="span-01">距离封盘：--:--</span>
-      <span v-if="todayTime" class="span-01">距离开奖：{{lottery.startTime}} </span>
+      <span v-if="todayTime" class="span-01">距离开奖：<span style="color: #FF0000;">{{lotteryTime}}</span> </span>
       <span v-else class="span-01">距离开奖：--:-- </span>
       <span v-if="todayTime" class="span-01">6秒 <button class="refresh-btn">更新</button></span>
       <span v-else class="span-01">-- <button class="refresh-btn">更新</button></span>
@@ -35,7 +35,8 @@
       data(){
         return {
           type_index: 2,
-          sealingTime: ''
+          lotteryTime: '',  //开奖时间
+          sealingTime: ''   //封盘时间
         }
       },
       created() {
@@ -46,7 +47,7 @@
       mounted() {
         window.addEventListener('beforeunload',() =>{
           clearTimeout(this.timer)
-          localStorage.setItem('sealingTime',this.copyTime)
+//          localStorage.setItem('sealingTime',this.copyTime)
         })
       },
       methods:{
@@ -58,30 +59,43 @@
           let time = localStorage.getItem('sealingTime')
           time = Number(time)
           if(time <= 0) {
-            time = this.lottery.sealingTime
+            time = this.lottery.lotteryTime
           }
           this._timeInit(time)
         },
-        _timeInit(time1,time2) {
-          this.copyTime = time1
-          let minute = Math.floor(time1 / 60)
-          let second = time1 - minute *60
-          if(minute < 10) {
-            minute = '0' + minute
+        _timeInit(time) {
+          this.copyTime = time
+          let  sealingTime = time - 30
+          let lotteryMinute = Math.floor(time / 60)
+          let sealingMinute = Math.floor(sealingTime / 60)
+          let lotterySecond = time - lotteryMinute *60
+          let sealingSecond = sealingTime - sealingMinute *60
+          lotteryMinute = lotteryMinute < 10 ? '0' + lotteryMinute : lotteryMinute
+          sealingMinute = sealingMinute < 10 ? '0' + sealingMinute : sealingMinute
+          lotterySecond = lotterySecond < 10 ? '0' + lotterySecond : lotterySecond
+          sealingSecond = sealingSecond < 10 ? '0' + sealingSecond : sealingSecond
+          this.lotteryTime =  lotteryMinute + ':' + lotterySecond
+          if(sealingTime <= 0) {
+            this.sealingTime = '00:00'
+            this.$emit('timeOver', false)
+          }else {
+            this.sealingTime = sealingMinute + ':' + sealingSecond
           }
-          if(second < 10) {
-            second = '0' + second
-          }
-          if(time1 <= 0) {
-            minute = '00'
-            second = '00'
+          if(time <= 0) {
+            lotteryMinute = '00'
+            lotterySecond = '00'
             clearTimeout(this.timer)
+            setTimeout(() => {
+              this.$emit('timeBegin', true)
+              this.begin()
+            }, 2000)
+          }else {
+            time --
+            this.timer = setTimeout(() => {
+              this._timeInit(time)
+            },1000)
           }
-          time1 --
-          this.sealingTime =  minute + ':' + second
-          this.timer = setTimeout(() => {
-            this._timeInit(time1,time2)
-          },1000)
+
         }
       }
     }
