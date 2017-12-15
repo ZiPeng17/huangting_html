@@ -14,7 +14,7 @@
           </tr>
           <tr>
             <td v-for="item in tab_list" class="ball-name" ref="tableList">
-              <ball-list :info="item" :type_index="type_index" :thShow="false" :width="180" ref="ballList" class="ball-list"></ball-list>
+              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="180" :firstTd="50" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -29,20 +29,28 @@
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
               <td v-for="item in ball_list" class="ball-name" ref="tableList">
-                <ball-list :info="item" :type_index="type_index" :thShow="false" :width="135" ref="ballList" class="ball-list"></ball-list>
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="135" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
         </div>
         <tz-money @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney" :type_index="type_index"></tz-money>
       </div>
+      <chuqiulv :type_list="type_list"></chuqiulv>
     </div>
 </template>
 
 <script>
   import ballList from '../ball-list/ball-list'
   import tzMoney from '../tz-money/tz-money'
+  import chuqiulv from '../chuqiulv/chuqiulv'
     export default {
+      props: {
+        todayTime: {
+          type: Boolean,
+          default: true
+        }
+      },
       data() {
         return {
           type_index: 2,
@@ -183,6 +191,7 @@
               ]
             }
           ],
+          type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],
         }
       },
       methods: {
@@ -191,17 +200,12 @@
         },
         sendMoney(val) {
           this.money = val
-          if (this.selectTab.length && this.selectChec.length) {
-            this.selectTab.forEach((num) => {
-              this.$refs.ballList[num].inputMoney(this.selectChec,this.money)
-            })
-            this.$refs.tzMoney.reset()
-            this.$refs.selectBall.removeClass()
-            this.selectTab = []
-            this.selectChec = []
-          }else {
-            alert('请选择需要填写下注金额的复选框!!!')
-          }
+          this.$refs.ballList.forEach((el,index) => {
+            this.$refs.ballList[index].inputMoney(this.money)
+          })
+          this.$refs.tzMoney.reset()
+          this.selectTab = []
+          this.selectChec = []
         },
         clearChip() {
           this.$refs.ballList.forEach((el,index) => {
@@ -211,7 +215,8 @@
       },
       components: {
         ballList,
-        tzMoney
+        tzMoney,
+        chuqiulv
       }
     }
 </script>

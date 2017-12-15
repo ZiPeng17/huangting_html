@@ -14,14 +14,19 @@
       </td>
     </tr>
     <tr class="ball_tr_H" v-for="tab_item in info.data" ref="list">
-      <td  class="td_1" v-if="tab_item.no && (words.indexOf(tab_item.no)> -1)">{{tab_item.no}}</td>
-      <td  v-else :class="'No_'+tab_item.no"></td>
-      <td class="td_2">
+      <td class="td_1" :width="firstTd" v-if="words.indexOf(tab_item.no)> -1">{{tab_item.no}}</td>
+      <td class="td_1" :width="firstTd" v-else-if="tab_item.no === 0 || tab_item.no" :class="'No_'+tab_item.no"></td>
+      <td class="td_2" v-if="todayTime && flag">
         <span class="multiple_Red">{{tab_item.num}}</span>
         <input class="checkbox" type="checkbox" v-show="type_index == 2" :value="tab_item.no">
       </td>
+      <td v-else class="td_2">
+        <span class="fengPan">-</span>
+      </td>
       <td class="td_3" v-show="type_index == 2">
-        <input class="inp1" id="jeuM_3008" maxlength="9" size="5" name="jeuM_3008">
+        <input v-if="todayTime && flag" class="inp1" id="jeuM_3008" maxlength="9" size="5" name="jeuM_3008">
+        <span v-else class="inp2">封盘</span>
+
       </td>
     </tr>
   </table>
@@ -30,6 +35,10 @@
 <script>
   export default {
     props: {
+      todayTime: {
+        type: Boolean,
+        default: true
+      },
       info: {
         type: Object,
         default: {}
@@ -46,6 +55,10 @@
         type: Number,
         default: 150
       },
+      firstTd: {
+        type: Number,
+        default: 30
+      },
       thShow: {
         type: Boolean,
         default: true
@@ -57,11 +70,13 @@
     },
     data() {
       return {
+        flag: true,   //临时的
         words: ['大', '小', '单', '双','总和大','总和小','总和单','总和双','龙','虎','和','豹子','顺子','对子','半顺','杂六'],
       }
     },
     methods: {
       selectChecked(arr) {
+        if(!this.todayTime) return
         let els = this.$refs.list
         arr.forEach((item) => {
           els.forEach((el,index) => {
@@ -72,25 +87,25 @@
           })
         })
       },
-      inputMoney(arr,money) {
+      inputMoney(money) {
         let els = this.$refs.list
-        arr.forEach((item) => {
           els.forEach((el,index) => {
-            if(index === item) {
-              let input = els[index+4].getElementsByClassName('inp1')[0]
+              let check = el.getElementsByClassName('checkbox')[0]
+              let input = el.getElementsByClassName('inp1')[0]
               let val = Number(input.value)
-              if(val > 0) {
-                input.value = val + Number(money)
-              }else {
-                input.value = money
+              if(check.checked) {
+                if(val) {
+                  input.value = val + Number(money)
+                }else {
+                  input.value = money
+                }
               }
-              els[index+4].getElementsByClassName('checkbox')[0].checked = false
-              els[index+4].getElementsByClassName('inp1')[0].disabled = false
-            }
+              el.getElementsByClassName('checkbox')[0].checked = false
+              el.getElementsByClassName('inp1')[0].disabled = false
           })
-        })
       },
       _checkInit() {
+        if(!this.todayTime) return
         let els = this.$refs.list
         els.forEach((el) => {
           el.getElementsByClassName('checkbox')[0].checked = false
@@ -109,6 +124,18 @@
 
 <style scoped>
   table tr th, table tr td { border:1px solid  #e9ba84; vertical-align: middle}
+  .td_1{
+    white-space: nowrap;
+  }
+  .inp2{
+    width:60px;
+  }
+  .fengPan{
+    font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    color: #FF0000;
+    font-weight: bold;
+  }
   .ball-list{
     background-color: #e9ba84;
     border: 0px #e9ba84 solid;
@@ -125,6 +152,8 @@
     line-height: 24px;
     text-align: center;
     color: #4a1a04;
+    white-space: nowrap;
+    padding:0 ;
     font-weight: bold;
   }
   .ball_tr_H{

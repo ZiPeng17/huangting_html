@@ -6,17 +6,13 @@
       :class="['tz_type-btn', type_index == 2 ? 'select-tz_type-btn' : '']" @click="select_type(2)">一般</span>
     </div>
     <div class="clearfix table-wrapper">
-      <table class="left" cellspacing="1" cellpadding="0" border="0">
+      <table cellspacing="1" cellpadding="0" border="0">
         <tr>
           <td v-for="item in tab_list" class="ball-name" ref="tableList">
             <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" ref="ballList" class="ball-list"></ball-list>
           </td>
         </tr>
       </table>
-      <div class="right">
-        <ball-list :todayTime="todayTime" :width="180" :firstTd="50" :info="tab_list_num" :type_index="type_index" ref="ballList2"></ball-list>
-        <ball-list :todayTime="todayTime" :width="180" :firstTd="50" :info="tab_list_radio" :type_index="type_index" :thShow="false" :radioShow="true" ref="ballList3"></ball-list>
-      </div>
     </div>
     <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
@@ -406,11 +402,11 @@
           ]
 
         },
+        type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],//出球率列表
         selectBall: -1,   //选择第几个球下标
         selectNum: -1,    // 选择的数字下标
         selectTab: [],    // 选中的球列表集合
         selectChec: [],   //选中的数字列表集合
-        type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],//出球率列表
         money: ''        //下注金额
       }
     },
@@ -423,19 +419,17 @@
         this.selectTab = arr
       },
       selectThisNum(arr) {
-       this.selectChec = arr
+        this.selectChec = arr
       },
       sendMoney(val) {
         this.money = val
         this.$refs.ballList.forEach((el,index) => {
           this.$refs.ballList[index].inputMoney(this.money)
         })
-        this.$refs.ballList2.inputMoney(this.money)
-        this.$refs.ballList3.inputMoney(this.money)
-          this.$refs.tzMoney.reset()
-          this.$refs.selectBall.removeClass()
-          this.selectTab = []
-          this.selectChec = []
+        this.$refs.tzMoney.reset()
+        this.$refs.selectBall.removeClass()
+        this.selectTab = []
+        this.selectChec = []
       },
       clearChip() {
         this.$refs.ballList.forEach((el,index) => {
@@ -476,9 +470,6 @@
 </script>
 
 <style scoped>
-  .total-table{
-    min-width:950px;
-  }
   .ball-name {
     background-image: url(../../../static/image/bg.jpg);
     line-height: 24px;
@@ -490,6 +481,7 @@
   .right {
     float: left;
   }
+
   .span-01 {
     display: inline-block;
     padding: 0 0 10px 20px;
@@ -499,6 +491,9 @@
 
   .left {
     float: left;
+  }
+  .table-wrapper{
+
   }
   .tz_type {
     display: inline-block;
@@ -525,3 +520,4 @@
     font-weight: 700;
   }
 </style>
+
