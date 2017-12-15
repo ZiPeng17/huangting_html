@@ -17,6 +17,15 @@
                     <td class="t_list_caption" width="80">退水</td>
                     <td class="t_list_caption" width="105">退水后结果</td>
                 </tr>
+                <tr class="t_list_tr_1">
+                    <td>000000</td>
+                    <td>0</td>
+                    <td class="f_right">0.00&nbsp;</td>
+                    <td class="f_right">0.00&nbsp;</td>
+                    <td class="f_right">0.00&nbsp;</td>
+                    <td class="f_right">0.00&nbsp;</td>
+                    <td class="f_right Font_R">0.00&nbsp;</td>
+                </tr>
                 <tr class="t_list_bottom">
                     <td colspan="2">合计</td>
                     <td>0</td>
@@ -33,25 +42,6 @@
 <style scoped>
     .page {
         padding: 20px;
-    }
-    .t_list {
-        margin-top: 5px;
-        background-color: #e9ba84;
-        border: 1px #e9ba84 solid;
-        position: relative;
-    }
-    .t_list_caption {
-        /* background-image: url(/member/images/bg.jpg); */
-        line-height: 24px;
-        text-align: center;
-        color: #4a1a04;
-        font-weight: bold;
-    }
-    .t_list_bottom {
-        /* background-image: url(/member/images/bg1.jpg); */
-        line-height: 24px;
-        text-align: center;
-        color: #000000;
     }
 </style>
 

@@ -22,7 +22,7 @@
                     <td class="t_list_caption" width="80">退水</td>
                     <td class="t_list_caption" width="105">退水后结果</td>
                 </tr>
-                <tr class="t_list_bottom">
+                <tr class="t_list_tr_1">
                     <td>重庆时时彩</td>
                     <td>0</td>
                     <td class="f_right">0.00&nbsp;</td>
@@ -56,31 +56,6 @@
     .inp1 {
         border: 1px solid #b0b0b0;
         cursor: pointer;
-    }
-    .t_list {
-        margin-top: 5px;
-        background-color: #e9ba84;
-        border: 1px #e9ba84 solid;
-        position: relative;
-    }
-    .t_list_caption {
-        /* background-image: url(/member/images/bg.jpg); */
-        line-height: 24px;
-        text-align: center;
-        color: #4a1a04;
-        font-weight: bold;
-    }
-    .t_list_bottom {
-        /* background-image: url(/member/images/bg1.jpg); */
-        line-height: 24px;
-        text-align: center;
-        color: #000000;
-    }
-    .t_list_bottom:hover {
-        background: rgb(255,255,162);
-    }
-    .Font_R {
-        color: #FF0000;
     }
     td {
         cursor: default;

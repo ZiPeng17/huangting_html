@@ -12,7 +12,7 @@
     <td class="t_list_caption F_bold" colspan="7">重庆时时彩</td>
     <td class="t_list_caption F_bold" colspan="3">总数</td>
     <td class="t_list_caption F_bold" colspan="4"></td>
-    <td class="t_list_caption F_bold" colspan="3">牛牛</td>
+    <!--无牛牛数据-->
   </tr>
   <tr>
 
@@ -27,41 +27,279 @@
 	<td class="t_list_caption" width="35">前三</td>
 	<td class="t_list_caption" width="35">中三</td>
 	<td class="t_list_caption" width="35">后三</td>
-	<td class="t_list_caption" width="35">牛牛</td>
-	<td class="t_list_caption" width="35">大小</td>
-	<td class="t_list_caption" width="35">单双</td>
   </tr>
-  <tr v-for="n in 6" class="Ball_tr_H" onmouseover="this.style.backgroundColor='#FFFFA2'" onmouseout="this.style.backgroundColor=''" style="">
-            <td>20171215002</td>
-            <td>17-12-15 00:10</td>
-            <td class="No_8" width="27"></td>
-            <td class="No_9" width="27"></td>
-            <td class="No_2" width="27"></td>
-            <td class="No_6" width="27"></td>
-            <td class="No_5" width="27"></td>
-            <td width="35">30</td>
-            <td><span class="Font_r">双</span></td>
-            <td><span class="Font_r">大</span></td>
-            <td><span class="Font_r">龙</span></td>
-            <td>半顺</td>
-            <td>杂六</td>
-            <td>半顺</td>
-            <td><span class="font_R">牛牛</span></td>
-           	<td><span class="font_B">牛大</span></td>
-           	<td><span class="font_B">牛双</span></td>
+  <tr v-for="(n, index) in data" v-if="curr_page == Math.ceil((index+1)/per_num)" class="Ball_tr_H">
+      <!-- <div > -->
+            <td>{{n.no}}</td>
+            <td>{{n.time}}</td>
+            <td v-for="item in n.number" :class="'No_'+item" width="27"></td>
+            <td width="35">{{n.sum}}</td>
+            <td><span class="Font_R">{{n.oddEven}}</span></td>
+            <td><span class="Font_R">{{n.bigSmall}}</span></td>
+            <td><span class="Font_R">{{n.lh}}</span></td>
+            <td>{{n.qs}}</td>
+            <td>{{n.zs}}</td>
+            <td>{{n.hs}}</td>
+      <!-- </div> -->
   </tr>
   
   <tr class="t_list_bottom">
     <td colspan="2">
-      &nbsp;共&nbsp;1906&nbsp;期记录&nbsp;&nbsp; 共&nbsp;128&nbsp;页
+      &nbsp;共&nbsp;{{data.length}}&nbsp;期记录&nbsp;&nbsp; 共&nbsp;{{pages}}&nbsp;页
     </td>
     <td colspan="15" align="right">
-      &nbsp;<span class="Font_b">1</span>&nbsp;<a href="/draw/result/3?v=&amp;p=15">2</a>&nbsp;<a href="/draw/result/3?v=&amp;p=30">3</a>&nbsp;<a href="/draw/result/3?v=&amp;p=45">4</a>&nbsp;<a href="/draw/result/3?v=&amp;p=60">5</a>&nbsp;<a href="/draw/result/3?v=&amp;p=75">6</a>&nbsp;<a href="/draw/result/3?v=&amp;p=15">下一页</a>&nbsp;&nbsp;<a href="/draw/result/3?v=&amp;p=1905">最后页</a>    </td>
+        <span class="pageIndex noCurrPageIndex" @click="go_n_page(1)" v-if="curr_page > 5">第一页</span>
+        <span class="pageIndex noCurrPageIndex" @click="go_n_page(curr_page-1)" v-if="curr_page > 1">上一页</span>
+        <span v-for="n in pages" @click="go_n_page(n)">
+            <span v-if="(curr_page-n) >= -5 && (curr_page-n) <= 5" :class="[curr_page == n ? 'default' : 'noCurrPageIndex', 'pageIndex']">{{n}}</span>
+        </span>
+        <span v-if="pages > 5 && curr_page < pages" class="pageIndex noCurrPageIndex" @click="go_n_page(curr_page+1)">下一页</span>
+        <span v-if="pages > 5 && curr_page < (pages-5)" class="pageIndex noCurrPageIndex" @click="go_n_page(pages)">最后页</span>
+    </td>
   </tr>
 </tbody></table>
 
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                curr_page: 1,
+                per_num: 4, //每页多少显示条数据
+                pages: 1,
+                data: [
+                    {
+                        no: '201715109',
+                        time: '17-12-15 23:05',
+                        number: [8,9,2,6,5],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '小',
+                        lh: '龙',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715110',
+                        time: '17-12-15 23:15',
+                        number: [8,3,7,6,8],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '大',
+                        lh: '虎',
+                        qs: '半顺',
+                        zs: '对子',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715111',
+                        time: '17-12-15 23:17',
+                        number: [4,3,1,4,9],
+                        sum: 26,
+                        oddEven: '单',
+                        bigSmall: '小',
+                        lh: '和',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715112',
+                        time: '17-12-15 23:05',
+                        number: [8,9,2,6,5],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '小',
+                        lh: '龙',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715113',
+                        time: '17-12-15 23:15',
+                        number: [8,3,7,6,8],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '大',
+                        lh: '虎',
+                        qs: '半顺',
+                        zs: '对子',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715114',
+                        time: '17-12-15 23:17',
+                        number: [4,3,1,4,9],
+                        sum: 26,
+                        oddEven: '单',
+                        bigSmall: '小',
+                        lh: '和',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715115',
+                        time: '17-12-15 23:05',
+                        number: [8,9,2,6,5],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '小',
+                        lh: '龙',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715116',
+                        time: '17-12-15 23:15',
+                        number: [8,3,7,6,8],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '大',
+                        lh: '虎',
+                        qs: '半顺',
+                        zs: '对子',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715117',
+                        time: '17-12-15 23:17',
+                        number: [4,3,1,4,9],
+                        sum: 26,
+                        oddEven: '单',
+                        bigSmall: '小',
+                        lh: '和',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715109',
+                        time: '17-12-15 23:05',
+                        number: [8,9,2,6,5],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '小',
+                        lh: '龙',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715110',
+                        time: '17-12-15 23:15',
+                        number: [8,3,7,6,8],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '大',
+                        lh: '虎',
+                        qs: '半顺',
+                        zs: '对子',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715111',
+                        time: '17-12-15 23:17',
+                        number: [4,3,1,4,9],
+                        sum: 26,
+                        oddEven: '单',
+                        bigSmall: '小',
+                        lh: '和',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715109',
+                        time: '17-12-15 23:05',
+                        number: [8,9,2,6,5],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '小',
+                        lh: '龙',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715110',
+                        time: '17-12-15 23:15',
+                        number: [8,3,7,6,8],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '大',
+                        lh: '虎',
+                        qs: '半顺',
+                        zs: '对子',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715111',
+                        time: '17-12-15 23:17',
+                        number: [4,3,1,4,9],
+                        sum: 26,
+                        oddEven: '单',
+                        bigSmall: '小',
+                        lh: '和',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715109',
+                        time: '17-12-15 23:05',
+                        number: [8,9,2,6,5],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '小',
+                        lh: '龙',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715110',
+                        time: '17-12-15 23:15',
+                        number: [8,3,7,6,8],
+                        sum: 23,
+                        oddEven: '双',
+                        bigSmall: '大',
+                        lh: '虎',
+                        qs: '半顺',
+                        zs: '对子',
+                        hs: '顺子'
+                    },
+                    {
+                        no: '201715111',
+                        time: '17-12-15 23:17',
+                        number: [4,3,1,4,9],
+                        sum: 26,
+                        oddEven: '单',
+                        bigSmall: '小',
+                        lh: '和',
+                        qs: '半顺',
+                        zs: '杂六',
+                        hs: '顺子'
+                    },
+                ]
+            }
+        },
+        created() {
+            this.pages = Math.ceil(this.data.length/this.per_num);
+        },
+        methods: {
+            go_n_page(n) {
+                this.curr_page = n;
+
+            }
+        }
+    }
+</script>
 
 <style scoped>
     a {
@@ -71,14 +309,7 @@
     .page {
         padding: 20px;
     }
-    .t_list {
-        margin-top: 5px;
-        background-color: #e9ba84;
-        border: 1px #e9ba84 solid;
-        position: relative;
-        border-collapse: separate;
-        border-spacing: 1px;
-    }
+    
     .Ball_tr_H {
         line-height: 16px;
         text-align: center;
@@ -88,30 +319,17 @@
     .Ball_tr_H td {
         padding-top: 5px;
     }
-    .t_list_caption {
-        /* background-image: url(/member/images/bg.jpg); */
-        line-height: 24px;
-        text-align: center;
-        color: #4a1a04;
+    .pageIndex {
+        margin-right: 4px;
+    }
+    .default {
+        cursor: default;
         font-weight: bold;
     }
-    .t_list_bottom {
-        /* background-image: url(/member/images/bg1.jpg); */
-        line-height: 24px;
-        text-align: center;
-        color: #000000;
-    }
-    .Font_r {
-        color: #FF0000;
-    }
-    .Font_b {
-        font-weight: bold;
-    }
-    .Font_B {
-        color: #2836F4;
-    }
-    .Font_G {
-        color: #299A26;
+    .noCurrPageIndex:hover {
+        color: #c15422;
+        cursor: pointer;
+        text-decoration: underline;
     }
 </style>
 

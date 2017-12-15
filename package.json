@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "layui-laydate": "^5.0.85",
     "vue": "^2.5.2"
   },
   "devDependencies": {

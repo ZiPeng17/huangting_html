@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="page">
         <table width="820" border="0" cellspacing="0" cellpadding="0" height="64" background="/static/image/crule04.jpg">
             <tbody><tr>
-                <td width="160" height="35" align="center" background="/static/image/crule01.jpg"><strong>规 则 说 明</strong></td>
+                <td width="160" height="35" style="line-height:35px;" align="center" background="/static/image/crule01.jpg"><strong>规 则 说 明</strong></td>
                 <td width="647">&nbsp;</td>
                 <td width="13" rowspan="2" background="/static/image/crule03.jpg"></td>
             </tr>
@@ -14,17 +14,17 @@
                     <td width="739" align="center">
                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
                     <tbody><tr height="29" align="center">
-                                    <td width="7%" class="font_bs" onclick="location.href='/static/rule/2'">快乐十分</td>
+                                    <td width="7%" class="font_bs" @click="tab('广东快乐十分开奖网')">快乐十分</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
-                                    <td width="7%" class="font_bs" onclick="location.href='/static/rule/3'">重庆时时彩</td>
+                                    <td width="7%" class="font_bs" @click="tab('重庆时时彩官方网')">重庆时时彩</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
-                                    <td width="7%" class="font_bs" onclick="location.href='/static/rule/4'">北京赛车</td>
+                                    <td width="7%" class="font_bs" @click="tab('北京赛车(PK10)官方网')">北京赛车</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
-                                    <td width="7%" class="font_bs" onclick="location.href='/static/rule/6'">幸运农场</td>
+                                    <td width="7%" class="font_bs" @click="tab('幸运农场开奖网')">幸运农场</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
-                                    <td width="7%" class="font_bs" onclick="location.href='/static/rule/7'">PC蛋蛋</td>
+                                    <td width="7%" class="font_bs" @click="tab('PC蛋蛋')">PC蛋蛋</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
-                                    <td width="7%" class="font_bs" onclick="location.href='/static/rule/8'">幸运飞艇</td>
+                                    <td width="7%" class="font_bs" @click="tab('幸运飞艇')">幸运飞艇</td>
                                 </tr>
                     </tbody></table>
                     </td>
@@ -40,7 +40,7 @@
   <tbody><tr>
 <td>
 <h2>一般规则说明官方网</h2>
-<a href="http://lottery.sports.sohu.com/open/ssc.shtml" target="_blank"><h1>重庆时时彩官方网</h1></a>
+<a href="http://lottery.sports.sohu.com/open/ssc.shtml" target="_blank"><h1>{{title}}</h1></a>
 <ul>
   <li>客户一经在本公司开户或投注，即被视为已接受这些规则。
   </li><li>如果客户怀疑自己的资料被盗用，应立即通知本公司，并更改个人详细资料，且之前所使用的使用者名称及密码将全部无效。
@@ -142,14 +142,33 @@
 </tbody></table>
     </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      title: '广东快乐十分开奖网'
+    }
+  },
+  methods: {
+    tab(title) {
+      this.title = title
+    }
+  }
+}
+</script>
+
 
 <style scoped>
+    .page  {
+      padding: 20px;
+    }
     .font_bs {
         color: #FFF;
         height: 29px;
         line-height: 29px;
         font-weight: bold;
         cursor: hand;
+        background: url("/static/image/rule_b2.jpg") repeat-x left top;
     }
 
     h1 {
@@ -161,6 +180,9 @@
         -webkit-margin-start: 0px;
         -webkit-margin-end: 0px;
         font-weight: bold;
+    }
+    h1:hover {
+      text-decoration: underline;
     }
     h2 {
         border-top: 3px solid #8e1914;

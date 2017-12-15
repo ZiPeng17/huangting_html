@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
   line-height: 1;
-  background-color: #efeff4;
+  background-color: #fff;
 }
 ol, ul {
   list-style: none;
@@ -81,4 +81,47 @@ table {
 }
 .No_9 {
   background-position:0 -243px
+}
+
+/* 表格样式 */
+.t_list {
+  margin-top: 5px;
+  background-color: #e9ba84;
+  position: relative;
+  border-collapse: separate;
+  border-spacing: 1px;
+}
+.t_list_tr_1 {
+  background-color: #fff5ec;
+  text-align: center;
+  height: 20px;
+  line-height: 17px;
+}
+.t_list_tr_1:hover {
+  background: rgb(255,255,162);
+}
+.t_list_caption {
+  background-image: url(/static/image/bg.jpg);
+  line-height: 24px;
+  text-align: center;
+  color: #4a1a04;
+  font-weight: bold;
+}
+.t_list_bottom {
+  background-image: url(/static/image/bg.jpg);
+  line-height: 24px;
+  text-align: center;
+  color: #000000;
+}
+.Font_R {
+  color: #FF0000;
+}
+.Font_b {
+  font-weight: bold;
+}
+.Font_B {
+  color: #2836F4;
+}
+.Font_G {
+  color: #299A26;
 }
