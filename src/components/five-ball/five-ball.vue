@@ -1,12 +1,5 @@
 <template>
   <div class="sided-table">
-    <div class="span-01">
-      <span class="tz_type">投注类型：</span>
-      <span @click="select_type(1)"
-            :class="['tz_type-btn', type_index === 1 ? 'select-tz_type-btn' : '']"
-      >快捷</span>
-      <span :class="['tz_type-btn', type_index == 2 ? 'select-tz_type-btn' : '']" @click="select_type(2)">一般</span>
-    </div>
     <div>
       <table cellspacing="1" cellpadding="0" border="0" width="700">
         <tr>
@@ -74,7 +67,7 @@
           </table>
         </div>
       </div>
-      <tz-money @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney" :type_index="type_index"></tz-money>
+      <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney"></tz-money>
     </div>
     <chuqiulv :type_list="type_list" :num_list="num_list"></chuqiulv>
   </div>
@@ -89,11 +82,14 @@
       todayTime: {
         type: Boolean,
         default: true
+      },
+      type_index: {
+        type: Number,
+        default: 2
       }
     },
     data() {
       return {
-        type_index: 2,
         tab_list: [
           {
             ballname: '',
@@ -353,15 +349,20 @@
       }
     },
     methods: {
-      select_type: function (i) {
-        this.type_index = i;
-      },
       sendMoney(val) {
         this.money = val
+        let isChecked = false
         this.$refs.ballList.forEach((el,index) => {
-          this.$refs.ballList[index].inputMoney(this.money)
+          isChecked = this.$refs.ballList[index].isChecked() || isChecked
         })
-        this.$refs.tzMoney.reset()
+        if(isChecked) {
+          this.$refs.ballList.forEach((el, index) => {
+            this.$refs.ballList[index].inputMoney(this.money)
+          })
+          this.$refs.tzMoney.reset()
+        } else {
+          alert('请选择需要填写下注金额的复选框!!!')
+        }
       },
       clearChip() {
         this.$refs.ballList.forEach((el,index) => {
@@ -378,36 +379,6 @@
 </script>
 
 <style scoped>
-  .span-01 {
-    display: inline-block;
-    padding: 0 0 10px 20px;
-    width: 220px;
-    color: #4f260d;
-  }
-  .tz_type {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #501e02;
-    margin-right: 7px;
-  }
-
-  .tz_type-btn {
-    display: inline-block;
-    border: 1px solid #cacaca;
-    background: #fff;
-    border-radius: 2px;
-    padding: 0 4px;
-    margin-right: 6px;
-    cursor: pointer;
-  }
-
-  .select-tz_type-btn {
-    background: #fffec2;
-    border: 1px solid #d8a467;
-    color: #CF0000;
-    font-weight: 700;
-  }
   .title{
     background-image: url(../../../static/image/bg.jpg);
     line-height: 24px;

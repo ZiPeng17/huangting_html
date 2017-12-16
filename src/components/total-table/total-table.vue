@@ -1,26 +1,25 @@
 <template>
   <div class="total-table">
-    <div class="span-01">
-      <span class="tz_type">投注类型：</span><span @click="select_type(1)"
-                                              :class="['tz_type-btn', type_index === 1 ? 'select-tz_type-btn' : '']">快捷</span><span
-      :class="['tz_type-btn', type_index == 2 ? 'select-tz_type-btn' : '']" @click="select_type(2)">一般</span>
-    </div>
+
     <div class="clearfix table-wrapper">
-      <table class="left" cellspacing="1" cellpadding="0" border="0">
+      <table class="table" cellspacing="1" cellpadding="0" border="0">
         <tr>
-          <td v-for="item in tab_list" class="ball-name" ref="tableList">
-            <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" ref="ballList" class="ball-list"></ball-list>
+          <td v-for="(item,index) in tab_list" ref="tableList" :class="{'last': index >= (tab_list.length - 1)}">
+            <ball-list :todayTime="todayTime"
+                       :info="item"
+                       :type_index="type_index"
+                       :thShow="index < (tab_list.length - 1)"
+                       :radioShow="index >= (tab_list.length - 1)"
+                       ref="ballList" class="ball-list"></ball-list>
           </td>
         </tr>
       </table>
       <div class="right">
-        <ball-list :todayTime="todayTime" :width="180" :firstTd="50" :info="tab_list_num" :type_index="type_index" ref="ballList2"></ball-list>
-        <ball-list :todayTime="todayTime" :width="180" :firstTd="50" :info="tab_list_radio" :type_index="type_index" :thShow="false" :radioShow="true" ref="ballList3"></ball-list>
       </div>
     </div>
     <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
-    <tz-money @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney" :type_index="type_index"></tz-money>
+    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @sendSelected="sendSelected" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
     <chuqiulv :type_list="type_list"></chuqiulv>
   </div>
@@ -36,11 +35,15 @@
       todayTime: {
         type: Boolean,
         default: true
+      },
+      type_index: {
+        type: Number,
+        default: 2
       }
     },
     data() {
       return {
-        type_index: 2,
+
         tab_list: [  //表格数据
           {
             ballname: '第一球',
@@ -347,65 +350,67 @@
               },
             ]
           },
-        ],
-        tab_list_num: {  //表格数据
-          ballname: '总和-龙虎和',
-          data: [{
-            no: '总和大',
-            num: 1.94
+          {
+            ballname: '总和-龙虎和',
+            data: [
+              {
+              no: '总和大',
+              num: 1.94
+            },
+              {
+                no: '总和小',
+                num: 1.94
+              },
+              {
+                no: '总和单',
+                num: 1.94
+              },
+              {
+                no: '总和双',
+                num: 1.94
+              },
+              {
+                no: '龙',
+                num: 1.94
+              },
+              {
+                no: '虎',
+                num: 1.94
+              },
+              {
+                no: '和',
+                num: 1.94
+              }
+            ]
           },
-            {
-              no: '总和小',
-              num: 1.94
-            },
-            {
-              no: '总和单',
-              num: 1.94
-            },
-            {
-              no: '总和双',
-              num: 1.94
-            },
-            {
-              no: '龙',
-              num: 1.94
-            },
-            {
-              no: '虎',
-              num: 1.94
-            },
-            {
-              no: '和',
-              num: 1.94
-            }
-          ]
-        },
-        tab_list_radio: {  //表格数据
-          ballname: '',
-          data: [
-            {
-              no: '豹子',
-              num: 1.94
-            },
-            {
-              no: '顺子',
-              num: 1.94
-            },
-            {
-              no: '对子',
-              num: 1.94
-            },
-            {
-              no: '半顺',
-              num: 1.94
-            },
-            {
-              no: '杂六',
-              num: 1.94
-            }
-          ]
+          {
+            ballname: '',
+            data: [
+              {
+                no: '豹子',
+                num: 1.94
+              },
+              {
+                no: '顺子',
+                num: 1.94
+              },
+              {
+                no: '对子',
+                num: 1.94
+              },
+              {
+                no: '半顺',
+                num: 1.94
+              },
+              {
+                no: '杂六',
+                num: 1.94
+              }
+            ]
 
-        },
+          },
+        ],
+//        tab_list_radio:
         selectBall: -1,   //选择第几个球下标
         selectNum: -1,    // 选择的数字下标
         selectTab: [],    // 选中的球列表集合
@@ -415,10 +420,6 @@
       }
     },
     methods: {
-      select_type: function (i) {
-        this.type_index = i;
-      },
-
       selectThisBall(arr) {
         this.selectTab = arr
       },
@@ -427,15 +428,55 @@
       },
       sendMoney(val) {
         this.money = val
+        let isChecked = false
         this.$refs.ballList.forEach((el,index) => {
-          this.$refs.ballList[index].inputMoney(this.money)
+          isChecked = this.$refs.ballList[index].isChecked() || isChecked
         })
-        this.$refs.ballList2.inputMoney(this.money)
-        this.$refs.ballList3.inputMoney(this.money)
+        if(isChecked) {
+          this.$refs.ballList.forEach((el, index) => {
+            this.$refs.ballList[index].inputMoney(this.money)
+          })
           this.$refs.tzMoney.reset()
           this.$refs.selectBall.removeClass()
           this.selectTab = []
           this.selectChec = []
+        } else {
+          alert('请选择需要填写下注金额的复选框!!!')
+        }
+      },
+      sendSelected() {
+        let xz = []
+        let reg = /[^\d]+/g
+        let ballLists = this.$refs.ballList
+        for(let k = 0; k < ballLists.length; k++) {
+          let obj = ballLists[k].getChecked()
+          if(obj.data.length) {
+            for(let i=0;i<obj.data.length;i++) {
+              if(reg.test(obj.data[i].price)) {
+                alert('输入金额有误，请输入正确的数字！！！')
+                return
+              }
+            }
+            xz.push({
+              name: obj.ballname ? obj.ballname : '' ,
+              data:obj.data
+            })
+          }
+        }
+        if(!xz.length) {
+          alert('请填写下注金额！！！')
+          return
+        }
+        let str = ''
+        xz.forEach((item)=> {
+          if(item.name) {
+            str += item.name + ' : '
+          }
+          item.data.forEach((res)=> {
+            str +='号码 : '+ res.num +' : 押注金额 '+ res.price + '元；'
+          })
+        })
+        alert(str)
       },
       clearChip() {
         this.$refs.ballList.forEach((el,index) => {
@@ -479,49 +520,16 @@
   .total-table{
     min-width:950px;
   }
-  .ball-name {
-    background-image: url(../../../static/image/bg.jpg);
-    line-height: 24px;
-    text-align: center;
-    color: #4a1a04;
-    font-weight: bold;
+  .table{
+    position: relative;
   }
-
+  .table-wrapper .last{
+    position: absolute;
+    right:0;
+    top:240px;
+  }
   .right {
     float: left;
   }
-  .span-01 {
-    display: inline-block;
-    padding: 0 0 10px 20px;
-    width: 220px;
-    color: #4f260d;
-  }
 
-  .left {
-    float: left;
-  }
-  .tz_type {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #501e02;
-    margin-right: 7px;
-  }
-
-  .tz_type-btn {
-    display: inline-block;
-    border: 1px solid #cacaca;
-    background: #fff;
-    border-radius: 2px;
-    padding: 0 4px;
-    margin-right: 6px;
-    cursor: pointer;
-  }
-
-  .select-tz_type-btn {
-    background: #fffec2;
-    border: 1px solid #d8a467;
-    color: #CF0000;
-    font-weight: 700;
-  }
 </style>

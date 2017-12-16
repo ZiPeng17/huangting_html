@@ -9,10 +9,14 @@
       <span v-else class="span-01">距离封盘：--:--</span>
       <span v-if="todayTime" class="span-01">距离开奖：<span style="color: #FF0000;">{{lotteryTime}}</span> </span>
       <span v-else class="span-01">距离开奖：--:-- </span>
-      <span v-if="todayTime" class="span-01">6秒 <button class="refresh-btn">更新</button></span>
+      <span v-if="todayTime" class="span-01">{{refTime}}秒<button class="refresh-btn" @click="refreshTime">更新</button></span>
       <span v-else class="span-01">-- <button class="refresh-btn">更新</button></span>
     </div>
-
+    <div class="span-01">
+      <span class="tz_type">投注类型：</span>
+      <span class="tz_type-btn" @click="select_type(1)" :class="{'select-tz_type-btn': type_index == 1}">快捷</span>
+      <span class="tz_type-btn" @click="select_type(2)" :class="{'select-tz_type-btn': type_index == 2}">一般</span>
+    </div>
   </div>
 </template>
 
@@ -36,13 +40,16 @@
         return {
           type_index: 2,
           lotteryTime: '',  //开奖时间
-          sealingTime: ''   //封盘时间
+          sealingTime: '',  //封盘时间
+          refTime: 45
         }
       },
       created() {
         this.timer = null
+        this.refreshTimer = null
         this.copyTime = 0
         this.begin()
+        this.refreshTime()
       },
       mounted() {
         window.addEventListener('beforeunload',() =>{
@@ -51,6 +58,20 @@
         })
       },
       methods:{
+        select_type: function (i) {
+          this.type_index = i;
+          this.$emit('select_type', i)
+        },
+        refreshTime() {
+          this.refTime = 45
+          clearInterval(this.refreshTimer)
+          this.refreshTimer = setInterval(()=> {
+            if(this.refTime <= 0) {
+              this.refTime = 46
+            }
+            this.refTime --
+          },1000)
+        },
         begin() {
           if(!this.todayTime) {
             localStorage.setItem('sealingTime',0)
@@ -103,19 +124,41 @@
 
 <style scoped>
   .lottery-info{
-    padding: 20px 20px 0 20px;
+    padding: 20px;
   }
   .marginB{
     margin-bottom:7px;
   }
   .span-01 {
     display: inline-block;
-
     width: 220px;
     color: #4f260d;
   }
   .red {
     color: red;
   }
+  .tz_type {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #501e02;
+    margin-right: 7px;
+  }
 
+  .tz_type-btn {
+    display: inline-block;
+    border: 1px solid #cacaca;
+    background: #fff;
+    border-radius: 2px;
+    padding: 0 4px;
+    margin-right: 6px;
+    cursor: pointer;
+  }
+
+  .select-tz_type-btn {
+    background: #fffec2;
+    border: 1px solid #d8a467;
+    color: #CF0000;
+    font-weight: 700;
+  }
 </style>

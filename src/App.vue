@@ -10,30 +10,31 @@
       <rule v-else-if="show_top_menu.currIndex === 6"></rule>
     </div>
     <div v-else>
-      <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin"></lottery-info>
+      <rank-list></rank-list>
+      <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin" @select_type="select_type"></lottery-info>
       <div v-if="currentIndex === 0">
-        <total-table :todayTime="flag"></total-table>
+        <total-table :todayTime="flag" :type_index="type_index"></total-table>
       </div>
       <div v-else-if="currentIndex === 1">
-        <sided-table :todayTime="flag"></sided-table>
+        <sided-table :todayTime="flag" :type_index="type_index"></sided-table>
       </div>
       <div v-else-if="currentIndex === 2">
-        <one-to-five :todayTime="flag"></one-to-five>
+        <one-to-five :todayTime="flag" :type_index="type_index"></one-to-five>
       </div>
       <div v-else-if="currentIndex === 3">
-        <first-ball :todayTime="flag"></first-ball>
+        <first-ball :todayTime="flag" :type_index="type_index"></first-ball>
       </div>
       <div v-else-if="currentIndex === 4">
-        <second-ball :todayTime="flag"></second-ball>
+        <second-ball :todayTime="flag" :type_index="type_index"></second-ball>
       </div>
       <div v-else-if="currentIndex === 5">
-        <three-ball :todayTime="flag"></three-ball>
+        <three-ball :todayTime="flag" :type_index="type_index"></three-ball>
       </div>
       <div v-else-if="currentIndex === 6">
-        <four-ball :todayTime="flag"></four-ball>
+        <four-ball :todayTime="flag" :type_index="type_index"></four-ball>
       </div>
       <div v-else-if="currentIndex === 7">
-        <five-ball :todayTime="flag"></five-ball>
+        <five-ball :todayTime="flag" :type_index="type_index"></five-ball>
       </div>
     </div>
   </div>
@@ -41,6 +42,7 @@
 
 <script>
 import Tab from './components/tab/tab'
+import rankList from './components/rank-list/rank-list'
 import lotteryInfo from './components/lottery-info/lottery-info'
 import totalTable from './components/total-table/total-table'
 import sidedTable from './components/sided-table/sided-table'
@@ -71,12 +73,13 @@ export default {
         startTime: '01:20',
       },
       currentIndex : 0,
+      type_index: 2,
       show_top_menu: {
         state: false,
         currIndex: 2
       },
-      todayTime: false,   //当前的时间是否开盘  false代表今天已经封盘   开盘时间07 ---  16  点
-      timeFlag: true      //封盘倒计时结束开始封盘  true 代表可以封盘  默认开盘状态
+      todayTime: true,   //当前的时间是否开盘  false代表封盘状态   开盘时间07 ---  16  点
+      timeFlag: true      //封盘倒计时结束开始封盘  true 代表开盘状态  false代表封盘状态
     }
   },
   created() {
@@ -88,6 +91,9 @@ export default {
     }
   },
   methods:{
+    select_type(i) {
+      this.type_index = i
+    },
     selectText(val,index) {
       this.title = val
       this.currentIndex = index
@@ -117,6 +123,7 @@ export default {
   name: 'app',
   components: {
     Tab,
+    rankList,
     lotteryInfo,
     topTab,
     todayOrder,

@@ -8,35 +8,30 @@
               <input id="TextMoney_1" class="elem_amount_input elem_amount_input_quick" v-model="money" maxlength="9" name="">
             </span>
           <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="sendMoney" value="传送金额" type="submit" name="confirm">
-
         </div>
       </div>
       <div class="dvclrr">
         <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="clearChip" value="清 空" type="button" name="clearBtn">
-        <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="ResetTdOnSelected();" value="下 注" type="button" name="reset">
+        <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="sendSelected" value="下 注" type="button" name="reset">
         <span style="color: red">注:多次点击筹码，金额将累加！</span>
       </div>
     </div>
     <div v-else>
       <div class="tdchip" style="display: inline-block; width: 56%;">
-        <span class="cp01"></span>
-        <span class="cp02"></span>
-        <span class="cp03"></span>
-        <span class="cp04"></span>
-        <span class="cp05"></span>
+        <span v-for="chip in chipList" :class="chip.name" @click="sendValue(chip.price)"></span>
       </div>
       <div class="align-c" style="display: inline-block; width: 43%;">
         <div id="M_ConfirmClew_2">
           <div class="elem_amount">
             <strong class="t kuaijie">金额</strong>
             <span class="kuaijie">
-              <input id="TextMoney_2" onkeypress="digitOnly(event)" maxlength="9" name="" class="elem_amount_input elem_amount_input_quick">
+              <input id="TextMoney_2" onkeypress="digitOnly(event)" maxlength="9"  v-model="money" name="" class="elem_amount_input elem_amount_input_quick">
             </span>
             <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" value="下 注" type="submit" name="confirm" class="btn2">
             <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="ResetTdOnSelected();" value="重 置" type="button" name="reset" class="btn2">
           </div>
         </div>
-        <div class="dvclrr"><input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="clearChip()" value="清 空" type="button" name="clearBtn" class="btn2">&nbsp;&nbsp;
+        <div class="dvclrr"><input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="clearChip()" value="清 空" type="button" name="clearBtn" class="btn2">&nbsp;&nbsp;
           <span>注:多次点击筹码，金额将累加！</span>
         </div>
       </div>
@@ -48,6 +43,10 @@
 <script>
     export default {
       props: {
+        todayTime: {
+          type: Boolean,
+          default: true
+        },
         type_index: {
           type: Number,
           default: 2
@@ -55,18 +54,57 @@
       },
       data() {
         return {
-          money:''
+          money:'',
+          chipList: [
+            {
+              name: 'cp01',
+              price: 50
+            },
+            {
+              name: 'cp02',
+              price: 100
+            },
+            {
+              name: 'cp03',
+              price: 500
+            },
+            {
+              name: 'cp04',
+              price: 1000
+            },
+            {
+              name: 'cp05',
+              price: 5000
+            }
+          ]
         }
       },
       methods: {
+        sendValue(val) {
+          this.money = Number(this.money) + val
+        },
         sendMoney() {
-          if(this.money) {
+          let reg = /[^\d]+/g
+          let boo = reg.test(this.money)
+          if(!this.todayTime) {
+            return
+          }
+          if(this.money && !boo) {
             this.$emit('sendMoney', this.money)
           }else {
-            alert('请选择需要填写下注金额的复选框!!!')
+            alert('请填写正确的下注金额!!!')
           }
         },
+        sendSelected() {
+          if(!this.todayTime) {
+            return
+          }
+          this.$emit('sendSelected')
+        },
         clearChip() {
+          if(!this.todayTime) {
+            return
+          }
           this.$emit('clearChip')
         },
         reset() {

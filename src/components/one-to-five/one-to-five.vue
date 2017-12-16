@@ -1,14 +1,9 @@
 <template>
   <div class="total-table">
-    <div class="span-01">
-      <span class="tz_type">投注类型：</span><span @click="select_type(1)"
-                                              :class="['tz_type-btn', type_index === 1 ? 'select-tz_type-btn' : '']">快捷</span><span
-      :class="['tz_type-btn', type_index == 2 ? 'select-tz_type-btn' : '']" @click="select_type(2)">一般</span>
-    </div>
     <div class="clearfix table-wrapper">
       <table cellspacing="1" cellpadding="0" border="0">
         <tr>
-          <td v-for="item in tab_list" class="ball-name" ref="tableList">
+          <td v-for="item in tab_list" ref="tableList">
             <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" ref="ballList" class="ball-list"></ball-list>
           </td>
         </tr>
@@ -16,7 +11,7 @@
     </div>
     <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
-    <tz-money @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney" :type_index="type_index"></tz-money>
+    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
     <chuqiulv :type_list="type_list"></chuqiulv>
   </div>
@@ -32,11 +27,14 @@
       todayTime: {
         type: Boolean,
         default: true
+      },
+      type_index: {
+        type: Number,
+        default: 2
       }
     },
     data() {
       return {
-        type_index: 2,
         tab_list: [  //表格数据
           {
             ballname: '第一球',
@@ -411,10 +409,6 @@
       }
     },
     methods: {
-      select_type: function (i) {
-        this.type_index = i;
-      },
-
       selectThisBall(arr) {
         this.selectTab = arr
       },
@@ -423,13 +417,21 @@
       },
       sendMoney(val) {
         this.money = val
+        let isChecked = false
         this.$refs.ballList.forEach((el,index) => {
-          this.$refs.ballList[index].inputMoney(this.money)
+          isChecked = this.$refs.ballList[index].isChecked() || isChecked
         })
-        this.$refs.tzMoney.reset()
-        this.$refs.selectBall.removeClass()
-        this.selectTab = []
-        this.selectChec = []
+        if(isChecked) {
+          this.$refs.ballList.forEach((el, index) => {
+            this.$refs.ballList[index].inputMoney(this.money)
+          })
+          this.$refs.tzMoney.reset()
+          this.$refs.selectBall.removeClass()
+          this.selectTab = []
+          this.selectChec = []
+        } else {
+          alert('请选择需要填写下注金额的复选框!!!')
+        }
       },
       clearChip() {
         this.$refs.ballList.forEach((el,index) => {
@@ -470,54 +472,6 @@
 </script>
 
 <style scoped>
-  .ball-name {
-    background-image: url(../../../static/image/bg.jpg);
-    line-height: 24px;
-    text-align: center;
-    color: #4a1a04;
-    font-weight: bold;
-  }
 
-  .right {
-    float: left;
-  }
-
-  .span-01 {
-    display: inline-block;
-    padding: 0 0 10px 20px;
-    width: 220px;
-    color: #4f260d;
-  }
-
-  .left {
-    float: left;
-  }
-  .table-wrapper{
-
-  }
-  .tz_type {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #501e02;
-    margin-right: 7px;
-  }
-
-  .tz_type-btn {
-    display: inline-block;
-    border: 1px solid #cacaca;
-    background: #fff;
-    border-radius: 2px;
-    padding: 0 4px;
-    margin-right: 6px;
-    cursor: pointer;
-  }
-
-  .select-tz_type-btn {
-    background: #fffec2;
-    border: 1px solid #d8a467;
-    color: #CF0000;
-    font-weight: 700;
-  }
 </style>
 
