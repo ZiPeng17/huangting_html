@@ -1,7 +1,17 @@
 <template>
   <div class="lottery-info">
-    <div class="marginB">
-      <span class="span-01">重庆时时彩【第{{lottery.thisPhase}}期】</span><span class="span-01 red">今天輸贏： 0</span><span class="span-01">{{lottery.prevPhase}}期 开奖号码 </span>
+    <div class="marginB top-info">
+      <div class="top-info-l">
+        <p>重庆时时彩【第{{lottery.thisPhase}}期】</p>
+        <p class="red">今天輸贏： 0</p>
+      </div>
+      <div class="top-info-2">
+        <p class="date">{{lottery.prevPhase}}期 开奖号码 </p>
+        <p class="num-wrapper">
+          <i v-for="num in nums" class="num" :class=" 'No_' + num"></i>
+        </p>
+      </div>
+
     </div>
     <div class="marginB">
       <span class="span-01 red">{{title}}</span>
@@ -39,9 +49,10 @@
       data(){
         return {
           type_index: 2,
+          nums: [8,0,1,1,9],
           lotteryTime: '',  //开奖时间
           sealingTime: '',  //封盘时间
-          refTime: 45
+          refTime: 45       //刷新时间
         }
       },
       created() {
@@ -128,11 +139,37 @@
   }
   .marginB{
     margin-bottom:7px;
+
   }
   .span-01 {
     display: inline-block;
     width: 220px;
     color: #4f260d;
+  }
+  .top-info-l,.top-info-2{
+    display: inline-block
+  }
+  .top-info-l p{
+    display: inline-block;
+    width:220px;
+    height:25px;
+    line-height: 25px;
+  }
+  .top-info-2 .date{
+    height:25px;
+    width:150px;
+    line-height:25px;
+    padding-right: 5px;
+  }
+  .top-info-2{
+    position: relative;
+  }
+  .top-info-2 .num-wrapper{
+    position: absolute;
+    height:25px;
+    width: 160px;
+    left: 155px;
+    top:0;
   }
   .red {
     color: red;
@@ -144,21 +181,26 @@
     color: #501e02;
     margin-right: 7px;
   }
-
   .tz_type-btn {
     display: inline-block;
     border: 1px solid #cacaca;
     background: #fff;
     border-radius: 2px;
-    padding: 0 4px;
+    padding: 3px 5px;
     margin-right: 6px;
     cursor: pointer;
   }
-
   .select-tz_type-btn {
     background: #fffec2;
     border: 1px solid #d8a467;
     color: #CF0000;
     font-weight: 700;
+  }
+
+  .num{
+    display: inline-block;
+    height:25px;
+    width:26px;
+    padding-right:5px;
   }
 </style>

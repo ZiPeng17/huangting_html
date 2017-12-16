@@ -67,7 +67,7 @@
           </table>
         </div>
       </div>
-      <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney"></tz-money>
+      <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
     </div>
     <chuqiulv :type_list="type_list" :num_list="num_list"></chuqiulv>
   </div>
@@ -369,6 +369,11 @@
           this.$refs.ballList[index].clearInput()
         })
       },
+      resetTdOnSelected() {
+        this.$refs.ballList.forEach((el,index) => {
+          this.$refs.ballList[index].resetSelected()
+        })
+      }
     },
     components: {
       ballList,

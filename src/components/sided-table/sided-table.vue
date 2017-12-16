@@ -27,7 +27,7 @@
             </tr>
           </table>
         </div>
-        <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" ref="tzMoney"></tz-money>
+        <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
       </div>
       <chuqiulv :type_list="type_list"></chuqiulv>
     </div>
@@ -202,9 +202,6 @@
               this.$refs.ballList[index].inputMoney(this.money)
             })
             this.$refs.tzMoney.reset()
-            this.$refs.selectBall.removeClass()
-            this.selectTab = []
-            this.selectChec = []
           } else {
             alert('请选择需要填写下注金额的复选框!!!')
           }
@@ -214,6 +211,11 @@
             this.$refs.ballList[index].clearInput()
           })
         },
+        resetTdOnSelected() {
+          this.$refs.ballList.forEach((el,index) => {
+            this.$refs.ballList[index].resetSelected()
+          })
+        }
       },
       components: {
         ballList,
