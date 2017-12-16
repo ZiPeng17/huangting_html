@@ -25,14 +25,15 @@
           <div class="elem_amount">
             <strong class="t kuaijie">金额</strong>
             <span class="kuaijie">
-              <input id="TextMoney_2" onkeypress="digitOnly(event)" maxlength="9"  v-model="money" name="" class="elem_amount_input elem_amount_input_quick">
+              <input id="TextMoney_2" maxlength="9"  v-model="money" name="" class="elem_amount_input elem_amount_input_quick">
             </span>
             <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" value="下 注" type="submit" name="confirm" class="btn2">
-            <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" onclick="ResetTdOnSelected();" value="重 置" type="button" name="reset" class="btn2">
+            <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="resetTdOnSelected" value="重 置" type="button" name="reset" class="btn2">
           </div>
         </div>
-        <div class="dvclrr"><input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="clearChip()" value="清 空" type="button" name="clearBtn" class="btn2">&nbsp;&nbsp;
-          <span>注:多次点击筹码，金额将累加！</span>
+        <div class="dvclrr">
+          <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="reset" value="清 空" type="button" name="clearBtn" class="btn2">&nbsp;&nbsp;
+          <span style="color: red">注:多次点击筹码，金额将累加！</span>
         </div>
       </div>
 
@@ -105,7 +106,14 @@
           if(!this.todayTime) {
             return
           }
+          this.reset()
           this.$emit('clearChip')
+        },
+        resetTdOnSelected() {
+          if(!this.todayTime) {
+            return
+          }
+          this.$emit('resetTdOnSelected')
         },
         reset() {
           this.money = ''

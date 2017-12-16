@@ -19,7 +19,7 @@
     </div>
     <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
-    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @sendSelected="sendSelected" ref="tzMoney"></tz-money>
+    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @sendSelected="sendSelected" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
     <chuqiulv :type_list="type_list"></chuqiulv>
   </div>
@@ -481,6 +481,11 @@
       clearChip() {
         this.$refs.ballList.forEach((el,index) => {
           this.$refs.ballList[index].clearInput()
+        })
+      },
+      resetTdOnSelected() {
+        this.$refs.ballList.forEach((el,index) => {
+          this.$refs.ballList[index].resetSelected()
         })
       },
       _check() {

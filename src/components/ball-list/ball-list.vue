@@ -19,7 +19,7 @@
       <td class="td_2" v-if="todayTime" v-show="type_index === 2">
         <label>
           <span class="multiple_Red">{{tab_item.num}}</span>
-          <input class="checkbox" type="checkbox" :value="tab_item.no">
+          <input class="checkbox" type="checkbox" :value="tab_item.no" @click="changeChecked">
         </label>
       </td>
       <td class="td_2 label multiple_Red" v-if="todayTime" v-show="type_index !== 2">
@@ -27,15 +27,15 @@
       </td>
       <td class="td_2 fengPan" v-else>-</td>
       <td class="td_3" v-show="type_index == 2">
-        <input v-if="todayTime" class="inp1" id="jeuM_3008" maxlength="9" size="5" name="jeuM_3008" :val="tab_item.no">
+        <input v-if="todayTime" class="inp1" maxlength="9" size="5" :val="tab_item.no">
         <span v-else class="inp2">封盘</span>
-
       </td>
     </tr>
   </table>
 </template>
 
 <script>
+
   export default {
     props: {
       todayTime: {
@@ -106,11 +106,22 @@
               el.getElementsByClassName('inp1')[0].disabled = false
           })
       },
+      changeChecked(e) {
+        e.target.parentElement.parentElement.parentElement.getElementsByClassName('inp1')[0].disabled = e.target.checked
+      },
       selectTr(e) {
         if (this.type_index === 2) {
           return
         }
         this._addClass(e.target.parentElement, 'onBg')
+      },
+      resetSelected() {
+        let els = this.$refs.list
+        els.forEach((el,index) => {
+          if(this._hasClass(el,'onBg')) {
+            this._addClass(el,'onBg')
+          }
+        })
       },
       addclass(e) {
         if (this.type_index === 2) {
