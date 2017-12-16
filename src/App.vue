@@ -113,10 +113,10 @@ export default {
     beginTime() {
       let date = new Date()
       let hour = date.getHours()
-      if(hour >= 7 && hour <= 16) {
+      if(hour >= 7 && hour <= 16) { //定时刷的时间范围
         this.todayTime = true
       }else {
-        this.todayTime = true
+        this.todayTime = false
       }
     }
   },
