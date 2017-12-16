@@ -2,14 +2,14 @@
     <div class="page">
         <div>
             &nbsp;日期
-            <input style="CURSOR: hand" class="inp1" value="2017-12-14" readonly="" size="11">
+            <input style="CURSOR: hand" class="inp1" id="start_date" :value="start_date" readonly="" size="11">
             &nbsp;－
-            <input style="CURSOR: hand" class="inp1" value="2017-12-14" readonly="" size="11">
-            <input class="button_a" value="昨天" type="button" >
-            <input class="button_a" value="今天" type="button">
-            <input class="button_a" value="本周" type="button">
-            <input class="button_a" value="上周" type="button">
-            <input class="button_a" value="查询" type="button">
+            <input style="CURSOR: hand" class="inp1" id="end_date" :value="end_date" readonly="" size="11">
+            <input class="button_a" value="昨天" @click="yesterday" type="button" >
+            <input class="button_a" value="今天" @click="today" type="button">
+            <input class="button_a" value="本周" @click="toweek" type="button">
+            <input class="button_a" value="上周" @click="prevweek" type="button">
+            <input class="button_a" value="查询" @click="submit" type="button">
         </div>
         <table class="t_list" border="0" cellspacing="1" cellpadding="0">
             <tbody>
@@ -44,6 +44,60 @@
         </table> 
     </div>
 </template>
+
+<script>
+import laydate from 'layui-laydate'
+import 'layui-laydate/dist/theme/default/laydate.css'
+export default {
+    data() {
+        return{
+            start_date: new Date(),
+            end_date: new Date(),
+        }
+    },
+  created() {
+      
+      this.today()
+  },
+  mounted() {
+      laydate.render({ 
+        elem: '#start_date', //或 elem: document.getElementById('test')、elem: lay('#test') 等
+        format: 'yyyy-MM-dd'
+    });
+      laydate.render({ 
+        elem: '#end_date', //或 elem: document.getElementById('test')、elem: lay('#test') 等
+        format: 'yyyy-MM-dd'
+    });
+  },
+  methods: {
+      yesterday() {
+        this.start_date  = this.filter(new Date(new Date().getTime() - 24*60*60*1000));
+        this.end_date  = this.filter(new Date());
+      },
+      today() {
+        this.start_date = this.end_date = this.filter(new Date())
+      },
+      toweek() {
+        this.start_date  = this.filter(new Date(new Date().getTime() - 7*24*60*60*1000));
+        this.end_date  = this.filter(new Date());
+      },
+      prevweek() {
+        this.start_date  = this.filter(new Date(new Date().getTime() - 14*24*60*60*1000));
+        this.end_date  = this.filter(new Date(new Date().getTime() - 7*24*60*60*1000));
+      },
+      filter(date) {
+          var month = date.getMonth() + 1;
+          var day = date.getDate();
+          var str = date.getFullYear() + '-' + (month >= 10 ? month : '0' + month) + '-' + (day >= 10 ? day : '0' + day)
+          return str;
+      },
+      submit() {
+          // 调接口
+      }
+  }
+}
+</script>
+
 
 <style scoped>
     .page {
