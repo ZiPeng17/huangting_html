@@ -18,7 +18,7 @@
 
   </tr><tr>
 	<td class="t_list_caption" width="100">期号</td>
-	<td class="t_list_caption" width="110">开奖日期</td>
+	<td class="t_list_caption" width="130">开奖日期</td>
 	<td class="t_list_caption" colspan="5">开奖号码</td>
 	<td class="t_list_caption" width="40">总和</td>
 	<td class="t_list_caption" width="35">单双</td>
@@ -30,16 +30,20 @@
   </tr>
   <tr v-for="(n, index) in data" v-if="curr_page == Math.ceil((index+1)/per_num)" class="Ball_tr_H">
       <!-- <div > -->
-            <td>{{n.no}}</td>
+            <td>{{n.num}}</td>
             <td>{{n.time}}</td>
-            <td v-for="item in n.number" :class="'No_'+item" width="27"></td>
+            <td :class="'No_'+n.one" width="27"></td>
+            <td :class="'No_'+n.tow" width="27"></td>
+            <td :class="'No_'+n.three" width="27"></td>
+            <td :class="'No_'+n.four" width="27"></td>
+            <td :class="'No_'+n.five" width="27"></td>
             <td width="35">{{n.sum}}</td>
-            <td><span class="Font_R">{{n.oddEven}}</span></td>
-            <td><span class="Font_R">{{n.bigSmall}}</span></td>
-            <td><span class="Font_R">{{n.lh}}</span></td>
-            <td>{{n.qs}}</td>
-            <td>{{n.zs}}</td>
-            <td>{{n.hs}}</td>
+            <td><span class="Font_R">{{n.sumsd}}</span></td>
+            <td><span class="Font_R">{{n.sums}}</span></td>
+            <td><span class="Font_R">{{n.tt}}</span></td>
+            <td>{{n.fronts}}</td>
+            <td>{{n.mediums}}</td>
+            <td>{{n.posts}}</td>
       <!-- </div> -->
   </tr>
   
@@ -67,7 +71,7 @@
         data() {
             return {
                 curr_page: 1,
-                per_num: 4, //每页多少显示条数据
+                per_num: 10, //每页多少显示条数据
                 pages: 1,
                 data: [
                     {
@@ -291,6 +295,12 @@
         },
         created() {
             this.pages = Math.ceil(this.data.length/this.per_num);
+            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/Getlist').then(res => {
+                console.log(res.data);
+                this.data = res.data;
+            }, error => {
+                console.log(error);
+            });
         },
         methods: {
             go_n_page(n) {
