@@ -83,7 +83,7 @@ export default {
     }
   },
   created() {
-    this.beginTime()
+    this.beginTime();
   },
   computed: {
     flag() {
