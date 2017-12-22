@@ -10,7 +10,7 @@ import jst from './components/jsTable/jsTable'
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 // new Vue({
