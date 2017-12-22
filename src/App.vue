@@ -116,7 +116,7 @@ export default {
       if(hour >= 7 && hour <= 16) { //定时刷的时间范围
         this.todayTime = true
       }else {
-        this.todayTime = false
+        this.todayTime = true
       }
     }
   },

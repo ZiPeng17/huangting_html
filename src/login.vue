@@ -1,15 +1,15 @@
 <template>
 
-<form id="form_login" onsubmit="return finalcheck();" name="form_login" method="post" action="/member/login/check/" autocomplete="off">
-<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: #110502">
+<form id="form_login" onsubmit="return finalcheck();" name="form_login" method="post" autocomplete="off">
+<table  border="0" cellpadding="0" cellspacing="0" style="background-color: #110502">
   <tbody><tr>
     <td valign="top">
       <table width="1066" border="0" align="center" cellpadding="0" cellspacing="0">
       <tbody><tr>
-        <td height="314" background="/member/images/login_1.jpg">&nbsp;</td>
+        <td height="314" class="td1_bg">&nbsp;</td>
       </tr>
       <tr>
-        <td height="106" background="/member/images/login_2.jpg" align="left">
+        <td height="106" background="/static/image/login_2.jpg" align="left">
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tbody><tr>
             <td width="408" height="106"></td>
@@ -31,7 +31,7 @@
         </td>
       </tr>
       <tr>
-        <td height="267" background="/member/images/login_3.jpg">        
+        <td height="267" background="/static/image/login_3.jpg">        
           <div style="color: #ffffff; padding-top: 70px; text-align: center;">
 		    推荐分辩率为1280 × 960及以上。<span>推荐浏览器为 <a href="http://rj.baidu.com/soft/detail/14744.html?ald" target="_blank" style="color:red">谷歌Chrome</a>，<a href="http://rj.baidu.com/soft/detail/23356.html" target="_blank" style="color:red">微软IE9</a>，<a href="http://rj.baidu.com/soft/detail/10365.html" target="_blank" style="color:red">火狐Firefox</a> 以及 <a href="http://rj.baidu.com/soft/detail/12966.html" target="_blank" style="color:red">苹果Safari</a>。</span><br>
 		  <br>
@@ -47,6 +47,23 @@
 </template>
 
 <style scoped>
+  table{
+    width: 1066px;
+    margin: auto;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    -webkit-border-horizontal-spacing: 0px;
+    -webkit-border-vertical-spacing: 0px;
+    color: -internal-quirk-inherit;
+    text-align: start;
+    font-variant: normal normal;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
     body {
 	    margin-left: 0px;
 	    margin-top: 0px;
@@ -54,8 +71,8 @@
 	    margin-bottom: 0px;
 	    background-color: #110502;
 	    overflow:hidden;
-		background-image: url(/member/images/login_topbg.jpg);
-		background-repeat: repeat-x;
+		  background-image: url(/static/image/login_topbg.jpg);
+		  background-repeat: repeat-x;
     }
     .Fone_Color {font-size: 12px; color: #adc9d9; }
     .btn, .btn_m
@@ -64,7 +81,7 @@
         height: 87px;
         border: 0px solid #FF9224;
         background-color: #FFFFFF;
-        background-image: url( '/member/images/login_but.jpg');
+        background-image: url( '/static/image/login_but.jpg');
         cursor: hand;
         background-position:0px 0;
     }
@@ -76,5 +93,8 @@
     {
 		cursor: hand;
         background-position: -104px 0;
+    }
+    .td1_bg{
+      background: url("/static/image/login_1.jpg") no-repeat top center;
     }
 </style>
