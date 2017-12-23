@@ -132,9 +132,9 @@ export default {
         alert('请仔细阅读协议和规则');
         return false;
       } else {
-        console.log(this.$route);
+        console.log(this.$router);
         /// 路由跳转有问题
-        this.$route.path = '/mainpage';
+        this.$router.push({ path: '/mainpage'});
       }
     }
   }
