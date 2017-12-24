@@ -10,7 +10,8 @@
                        :type_index="type_index"
                        :thShow="index < (tab_list.length - 1)"
                        :radioShow="index >= (tab_list.length - 1)"
-                       ref="ballList" class="ball-list"></ball-list>
+                       :radioChecked="radioChecked"
+                       ref="ballList" @radioChange="radioChange" class="ball-list"></ball-list>
           </td>
         </tr>
       </table>
@@ -384,7 +385,7 @@
             ]
           },
           {
-            ballname: '',
+            ballname: ['前三','中三','后三'],
             data: [
               {
                 no: '豹子',
@@ -416,7 +417,8 @@
         selectTab: [],    // 选中的球列表集合
         selectChec: [],   //选中的数字列表集合
         type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],//出球率列表
-        money: ''        //下注金额
+        money: '',        //下注金额
+        radioChecked: '前三' //默认选中‘前三’
       }
     },
     methods: {
@@ -467,16 +469,51 @@
           alert('请填写下注金额！！！')
           return
         }
-        let str = ''
+        let args = {
+          user: 2
+        };
+        console.log(xz);
         xz.forEach((item)=> {
-          if(item.name) {
-            str += item.name + ' : '
+          console.log(typeof item.name);
+          if(item.name == '第一球') {
+            args['one'] = arg_str(item)
+          } else if(item.name == '第二球') {
+            args['tow'] = arg_str(item)
+          } else if(item.name == '第三球') {
+            args['three'] = arg_str(item)
+          } else if(item.name == '第四球') {
+            args['four'] = arg_str(item)
+          } else if(item.name == '第五球') {
+            args['five'] = arg_str(item)
+          } else if(item.name == '总和-龙虎和') {
+            args['sum'] = arg_str(item)
+          } else if(typeof item.name != 'string') {
+            if (this.radioChecked == '前三') {
+              args['frontS'] = arg_str(item)
+            } else if(this.radioChecked == '中三') {
+              args['mediumS'] = arg_str(item)
+            } else if(this.radioChecked == '后三') {
+              args['postS'] = arg_str(item)
+            }
           }
-          item.data.forEach((res)=> {
-            str +='号码 : '+ res.num +' : 押注金额 '+ res.price + '元；'
-          })
+          function arg_str (_item) {
+            let str = '';
+            _item.data.forEach((res)=> {
+              str += res.num + '-' + res.price + ','
+            })
+            return str.substr(0, str.length-1)
+          }
         })
-        alert(str)
+        console.log(args);
+        this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+            console.log(res.data);
+            if (res.data.code != "000") {
+              alert(res.data.res)
+            }
+        }, error => {
+            console.log(error);
+            alert('服务器错误或网络异常，请稍后重试');
+        });
       },
       clearChip() {
         this.$refs.ballList.forEach((el,index) => {
@@ -497,6 +534,9 @@
             this.$refs.ballList[num].selectChecked(this.selectChec,this.money)
           })
         }
+      },
+      radioChange(val) {
+        this.radioChecked = val;
       }
     },
     watch: {

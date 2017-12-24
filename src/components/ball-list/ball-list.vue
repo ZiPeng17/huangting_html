@@ -1,6 +1,6 @@
 <template>
   <table class="ball-list" cellspacing="1" cellpadding="0" :width="width" border="0">
-    <tr class="ball-name" v-if="info.ballname">
+    <tr class="ball-name" v-if="typeof info.ballname == 'string'">
       <td colspan="3">{{info.ballname}}</td>
     </tr>
     <tr class="th" v-if="thShow">
@@ -10,7 +10,9 @@
     </tr>
     <tr v-if="radioShow">
       <td colspan="3" class="td_caption_1" id="pc_301">
-        <input type="radio" name="radio" id="firet"><label for="firet">前三</label><input type="radio" id="second" name="radio"><label for="second">中三</label><input type="radio" name="radio" id="three"><label for="three">后三</label>
+        <span v-for="(name,index) in info.ballname">
+          <input type="radio" name="radio" :value="name" v-model="radioChecked" :id="'firet_'+index"><label :for="'firet_'+index">{{name}}</label>
+        </span>
       </td>
     </tr>
     <tr class="ball_tr_H" v-for="tab_item in info.data" ref="list" @click="selectTr" @mouseover="addclass" @mouseout="removeclass" :class="{'tans': type_index === 2}">
@@ -74,6 +76,12 @@
     data() {
       return {
         words: ['大', '小', '单', '双','总和大','总和小','总和单','总和双','龙','虎','和','豹子','顺子','对子','半顺','杂六'],
+        radioChecked: '前三'
+      }
+    },
+    watch: {
+      'radioChecked': function() {
+        this.$emit('radioChange', this.radioChecked);
       }
     },
     methods: {

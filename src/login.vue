@@ -23,8 +23,7 @@
                 <td height="35" valign="top"><input type="password" value="" v-model="password" tabindex="2" name="loginPwd" style="width:194px; height:29px; background-color:#200b04; border:solid 1px #b24b0f; font-size:20px; font-weight: bold; color:#fd9b4b"></td>
               </tr>
               <tr>
-                <td height="30" valign="top"><input type="text" name="ValidateCode" v-model="piccode" tabindex="3" maxlength="4" style="width:100px; height:29px; background-color:#200b04; border:solid 1px #b24b0f; font-size:20px; font-weight: bold; color:#fd9b4b">
-                <a id="chgImg" href="javascript:changeCaptcha();"><img id="ValidateCode" name="ValidateCode" width="86" height="28" border="0"  align="absmiddle" src="/public/captcha.php"></a></td>
+                <td height="30" valign="top"></td>
               </tr>
             </tbody></table></td>
             <td width="447" valign="top"><div class="btn" @click="login"></div></td>
@@ -104,21 +103,17 @@ export default {
         alert('请输入密码');
         return false;
       }
-      if (!this.piccode) {
-        alert('请输入图片验证码');
-        return false;
-      }
       var args = {
         name: this.username.trim(),
         paw: this.password.trim()
       };
-      this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/login', args).then(res => {
+      this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/login', args, {emulateJSON:true}).then(res => {
           console.log(res.data);
-          if (res.data.res == 200) {
+          if (res.data.res == 1) {
             this.show_login = false;
-            document.cookie = "uid=" + res.data.uid
+            window.sessionStorage.setItem("userinfo", JSON.stringify(res.data.uid));
           } else {
-            this.show_login = false;
+            alert(res.data.uid)
           }
       }, error => {
           console.log(error);

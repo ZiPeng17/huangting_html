@@ -13,7 +13,6 @@
       <div class="dvclrr">
         <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="clearChip" value="清 空" type="button" name="clearBtn">
         <input class="btn2" onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="sendSelected" value="下 注" type="button" name="reset">
-        <span style="color: red">注:多次点击筹码，金额将累加！</span>
       </div>
     </div>
     <div v-else>
