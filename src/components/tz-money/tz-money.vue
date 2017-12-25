@@ -26,7 +26,7 @@
             <span class="kuaijie">
               <input id="TextMoney_2" maxlength="9"  v-model="money" name="" class="elem_amount_input elem_amount_input_quick">
             </span>
-            <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" value="下 注" type="submit" name="confirm" class="btn2">
+            <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" value="下 注" type="submit" name="confirm" @click="bet" class="btn2">
             <input onmouseover="this.className='btn2m'" onmouseout="this.className='btn2'" @click="resetTdOnSelected" value="重 置" type="button" name="reset" class="btn2">
           </div>
         </div>
@@ -116,6 +116,9 @@
         },
         reset() {
           this.money = ''
+        },
+        bet() {
+          this.$emit('bet', this.money)
         }
       }
     }

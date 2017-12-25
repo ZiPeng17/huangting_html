@@ -15,7 +15,7 @@
         </span>
       </td>
     </tr>
-    <tr class="ball_tr_H" v-for="tab_item in info.data" ref="list" @click="selectTr" @mouseover="addclass" @mouseout="removeclass" :class="{'tans': type_index === 2}">
+    <tr class="ball_tr_H" v-for="tab_item in info.data" ref="list" @click="selectTr" :data-no="tab_item.no" @mouseover="addclass" @mouseout="removeclass" :class="{'tans': type_index === 2}">
       <td class="td_1" :width="firstTd" v-if="words.indexOf(tab_item.no)> -1">{{tab_item.no}}</td>
       <td class="td_1" :width="firstTd" v-else-if="tab_item.no === 0 || tab_item.no" :class="'No_'+tab_item.no"></td>
       <td class="td_2" v-if="todayTime" v-show="type_index === 2">
@@ -76,12 +76,20 @@
     data() {
       return {
         words: ['大', '小', '单', '双','总和大','总和小','总和单','总和双','龙','虎','和','豹子','顺子','对子','半顺','杂六'],
-        radioChecked: '前三'
+        radioChecked: '前三',
+        selectedNumbers: []
       }
     },
     watch: {
       'radioChecked': function() {
         this.$emit('radioChange', this.radioChecked);
+      },
+      'selectedNumbers': function() {
+        if (this.radioShow) {
+          this.$emit('selectNumChange', {arr: this.selectedNumbers, option: this.radioChecked})
+        } else {
+          this.$emit('selectNumChange', {arr: this.selectedNumbers, option: this.info.ballname})
+        }
       }
     },
     methods: {
@@ -121,7 +129,7 @@
         if (this.type_index === 2) {
           return
         }
-        this._addClass(e.target.parentElement, 'onBg')
+        this._addClass(e.target.parentElement, 'onBg', 1)
       },
       resetSelected() {
         let els = this.$refs.list
@@ -184,13 +192,23 @@
           el.getElementsByClassName('inp1')[0].disabled = false
         })
       },
-      _addClass(el, className) {
+      _addClass(el, className, source) {
         let newClass = el.className.split(' ')
         if (this._hasClass(el, className)) {
           let Cindex = newClass.indexOf(className)
           newClass.splice(Cindex, 1)
         } else {
           newClass.push(className)
+        }
+        if (source === 1) {
+          let _no = el.getAttribute('data-no');
+          let noIndex = this.selectedNumbers.indexOf(_no);
+          if (noIndex > -1) {
+            this.selectedNumbers.splice(noIndex, 1)
+          } else {
+            this.selectedNumbers.push(_no)
+          }
+          console.log(this.selectedNumbers);
         }
         el.className = newClass.join(' ')
       },

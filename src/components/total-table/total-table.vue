@@ -11,7 +11,9 @@
                        :thShow="index < (tab_list.length - 1)"
                        :radioShow="index >= (tab_list.length - 1)"
                        :radioChecked="radioChecked"
-                       ref="ballList" @radioChange="radioChange" class="ball-list"></ball-list>
+                       ref="ballList" 
+                       @radioChange="radioChange" 
+                       @selectNumChange="selectNumChange" class="ball-list"></ball-list>
           </td>
         </tr>
       </table>
@@ -20,7 +22,7 @@
     </div>
     <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
-    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @sendSelected="sendSelected" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
+    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @bet="bet" @clearChip="clearChip" @sendSelected="sendSelected" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
     <chuqiulv :type_list="type_list"></chuqiulv>
   </div>
@@ -418,7 +420,8 @@
         selectChec: [],   //选中的数字列表集合
         type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],//出球率列表
         money: '',        //下注金额
-        radioChecked: '前三' //默认选中‘前三’
+        radioChecked: '前三', //默认选中‘前三’
+        args: {}
       }
     },
     methods: {
@@ -537,6 +540,62 @@
       },
       radioChange(val) {
         this.radioChecked = val;
+      },
+      selectNumChange(obj) {
+        console.log(obj.arr);
+        console.log(obj.option);
+        let args = this.args;
+        if(obj.option == '第一球') {
+          args['one'] = obj.arr
+        } else if(obj.option == '第二球') {
+          args['tow'] = obj.arr
+        } else if(obj.option == '第三球') {
+          args['three'] = obj.arr
+        } else if(obj.option == '第四球') {
+          args['four'] = obj.arr
+        } else if(obj.option == '第五球') {
+          args['five'] = obj.arr
+        } else if(obj.option == '总和-龙虎和') {
+          args['sum'] = obj.arr
+        } else if (obj.option == '前三') {
+          args['frontS'] = obj.arr
+        } else if(obj.option == '中三') {
+          args['mediumS'] = obj.arr
+        } else if(obj.option == '后三') {
+          args['postS'] = obj.arr
+        }
+        this.args = args;
+      },
+      bet(val) {
+        if (val) {
+          if (Object.keys(this.args).length > 0) {
+            var args = this.args; //这里需要对象的深克隆才能解决此问题（this.args）会变
+            for(let key in args) {
+              args[key] = arg_str(args[key])
+            }
+            args['user'] = 2;
+            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+                console.log(res.data);
+                if (res.data.code != "000") {
+                  alert(res.data.res)
+                }
+            }, error => {
+                console.log(error);
+                alert('服务器错误或网络异常，请稍后重试');
+            });
+            function arg_str (_item) {
+              let str = '';
+              _item.forEach((res)=> {
+                str += res + '-' + val + ','
+              })
+              return str.substr(0, str.length-1)
+            }
+          } else {
+            alert('请至少选择一种玩法');
+          }
+        } else {
+          alert('请填写下注金额');
+        }
       }
     },
     watch: {
