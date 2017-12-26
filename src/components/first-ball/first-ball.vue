@@ -3,16 +3,16 @@
     <div>
       <table cellspacing="1" cellpadding="0" border="0" width="700">
         <tr>
-          <td v-for="item in tab_list" class="ball-name" ref="tableList">
-            <ball-list :todayTime="todayTime" :info="item" :type_index="type_index"  :width="150" ref="ballList" class="ball-list"></ball-list>
+          <td v-for="(item,index) in tab_list" class="ball-name" ref="tableList">
+            <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :width="150" @selectNumChange="selectNumChange" :sonIndex="'tab_list'+index" ref="ballList" class="ball-list"></ball-list>
           </td>
         </tr>
       </table>
       <div>
         <table cellspacing="1" cellpadding="0" border="0" width="751">
           <tr>
-            <td v-for="item in compare" class="ball-name" ref="tableList">
-              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="187" :firstTd="45.5" ref="ballList" class="ball-list"></ball-list>
+            <td v-for="(item,index) in compare" class="ball-name" ref="tableList">
+              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="187" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'compare'+index" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -20,8 +20,8 @@
       <div style="padding-top: 10px;">
         <table cellspacing="1" cellpadding="0" border="0" width="751">
           <tr>
-            <td v-for="item in totalCompare" class="ball-name" ref="tableList">
-              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="187" :firstTd="45.5" ref="ballList" class="ball-list"></ball-list>
+            <td v-for="(item,index) in totalCompare" class="ball-name" ref="tableList">
+              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="187" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'totalCompare'+index" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -29,8 +29,8 @@
       <div>
         <table cellspacing="1" cellpadding="0" border="0" width="751">
           <tr>
-            <td v-for="item in longHu" class="ball-name" ref="tableList">
-              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="250" :firstTd="45.5" ref="ballList" class="ball-list"></ball-list>
+            <td v-for="(item,index) in longHu" class="ball-name" ref="tableList">
+              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="250" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'longHu'+index" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -40,8 +40,8 @@
           <p class="title">前三</p>
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
-              <td v-for="item in centerTabList" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" ref="ballList" class="ball-list"></ball-list>
+              <td v-for="(item,index) in centerTabList" class="ball-name" ref="tableList">
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList1'+index" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
@@ -50,8 +50,8 @@
           <p class="title">中三</p>
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
-              <td v-for="item in centerTabList" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" ref="ballList" class="ball-list"></ball-list>
+              <td v-for="(item,index) in centerTabList" class="ball-name" ref="tableList">
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList2'+index" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
@@ -60,14 +60,21 @@
           <p class="title">后三</p>
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
-              <td v-for="item in centerTabList" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" ref="ballList" class="ball-list"></ball-list>
+              <td v-for="(item,index) in centerTabList" class="ball-name" ref="tableList">
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList3'+index" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
         </div>
       </div>
-      <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
+      <tz-money 
+        :todayTime="todayTime" 
+        :type_index="type_index" 
+        @sendMoney="sendMoney" 
+        @clearChip="clearChip" 
+        @sendSelected="sendSelected"
+        @resetTdOnSelected="resetTdOnSelected" 
+        @bet="bet" ref="tzMoney"></tz-money>
     </div>
     <chuqiulv :type_list="type_list" :num_list="num_list"></chuqiulv>
   </div>
@@ -345,7 +352,8 @@
           {ball:7,num:5},
           {ball:8,num:2},
           {ball:9,num:8}
-        ]  //0-9出现的次数
+        ],  //0-9出现的次数
+        args: {}
       }
     },
     methods: {
@@ -376,7 +384,113 @@
         this.$refs.ballList.forEach((el,index) => {
           this.$refs.ballList[index].resetSelected()
         })
-      }
+        // 重置
+        this.args = {}
+      },
+      selectNumChange(obj) {
+
+        console.log(obj.arr);
+        let args = this.args;
+        if (obj.witch) {
+          args[obj.witch] = obj.arr
+        }
+        let arr = [];
+        for(let key in args) {
+          if (key != 'one' && key != 'user') {
+            arr = arr.concat(args[key])
+          }
+        }
+        args['one'] = arr;
+
+      },
+      bet(val) {
+        if (val) {
+          if (Object.keys(this.args).length > 0) {
+            var args = this.args; //这里需要对象的深克隆才能解决此问题（this.args）会变
+            let _args = {};
+            for(let key in args) {
+              if (key == 'one') {
+                _args['one'] = arg_str(args[key]);
+                break;
+              }
+            }
+            _args['user'] = 2;
+            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', _args, {emulateJSON:true}).then(res => {
+                this.resetTdOnSelected();
+                console.log(res.data);
+                if (res.data.code != "000") {
+                  alert(res.data.res)
+                }
+            }, error => {
+                this.resetTdOnSelected();
+                console.log(error);
+                alert('服务器错误或网络异常，请稍后重试');
+            });
+            function arg_str (_item) {
+              let str = '';
+              _item.forEach((res)=> {
+                str += res + '-' + val + ','
+              })
+              return str.substr(0, str.length-1)
+            }
+          } else {
+            alert('请至少选择一种玩法');
+          }
+        } else {
+          alert('请填写下注金额');
+        }
+      },
+      sendSelected() {
+        let xz = []
+        let reg = /[^\d]+/g
+        let ballLists = this.$refs.ballList
+        for(let k = 0; k < ballLists.length; k++) {
+          let obj = ballLists[k].getChecked()
+          if(obj.data.length) {
+            for(let i=0;i<obj.data.length;i++) {
+              if(reg.test(obj.data[i].price)) {
+                alert('输入金额有误，请输入正确的数字！！！')
+                return
+              }
+            }
+            xz.push({
+              name: obj.ballname ? obj.ballname : '' ,
+              data:obj.data
+            })
+          }
+        }
+        if(!xz.length) {
+          alert('请填写下注金额！！！')
+          return
+        }
+        let args = {
+          user: 2
+        };
+        let str = '';
+        console.log(xz);
+        xz.forEach((item)=> {
+          console.log(typeof item.name);
+           str += arg_str(item)
+          function arg_str (_item) {
+            let _str = '';
+            _item.data.forEach((res)=> {
+              _str += res.num + '-' + res.price + ','
+            })
+            return _str
+          }
+        })
+        args['one'] = str.substr(0, str.length-1)
+        console.log(args);
+        this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+            console.log(res.data);
+            if (res.data.code != "000") {
+              alert(res.data.res)
+            }
+        }, error => {
+            console.log(error);
+            alert('服务器错误或网络异常，请稍后重试');
+        });
+      },
     },
     components: {
       ballList,

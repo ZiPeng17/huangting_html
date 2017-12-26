@@ -22,7 +22,14 @@
     </div>
     <select-ball @selectThisBall="selectThisBall" @selectThisNum="selectThisNum" :type_index="type_index" ref="selectBall"></select-ball>
     <!--下注-->
-    <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @bet="bet" @clearChip="clearChip" @sendSelected="sendSelected" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
+    <tz-money 
+      :todayTime="todayTime" 
+      :type_index="type_index" 
+      @sendMoney="sendMoney" 
+      @bet="bet" 
+      @clearChip="clearChip" 
+      @sendSelected="sendSelected" 
+      @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
     <chuqiulv :type_list="type_list"></chuqiulv>
   </div>
@@ -527,6 +534,7 @@
         this.$refs.ballList.forEach((el,index) => {
           this.$refs.ballList[index].resetSelected()
         })
+        this.args = {}; //重置
       },
       _check() {
         this.$refs.ballList.forEach((el,index) => {
@@ -575,11 +583,13 @@
             }
             args['user'] = 2;
             this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+                this.resetTdOnSelected();
                 console.log(res.data);
                 if (res.data.code != "000") {
                   alert(res.data.res)
                 }
             }, error => {
+                this.resetTdOnSelected();
                 console.log(error);
                 alert('服务器错误或网络异常，请稍后重试');
             });

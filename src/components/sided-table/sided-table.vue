@@ -6,8 +6,8 @@
             <td colspan="4" class="title">总和 - 龙虎</td>
           </tr>
           <tr>
-            <td v-for="item in tab_list" class="ball-name" ref="tableList">
-              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="180" :firstTd="50" ref="ballList" class="ball-list"></ball-list>
+            <td v-for="(item, index) in tab_list" class="ball-name" ref="tableList">
+              <ball-list :todayTime="todayTime" :sonIndex="'tab_list'+index" :info="item" @selectNumChange="selectNumChange" :type_index="type_index" :thShow="false" :width="180" :firstTd="50" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -21,13 +21,20 @@
           </div>
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
-              <td v-for="item in ball_list" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="135" ref="ballList" class="ball-list"></ball-list>
+              <td v-for="(item, index) in ball_list" class="ball-name" ref="tableList">
+                <ball-list :todayTime="todayTime" :sonIndex="'ball_list'+index" :info="item" @selectNumChange="selectNumChange" :type_index="type_index" :thShow="false" :width="135" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
         </div>
-        <tz-money :todayTime="todayTime" :type_index="type_index" @sendMoney="sendMoney" @clearChip="clearChip" @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
+        <tz-money 
+          :todayTime="todayTime" 
+          :type_index="type_index" 
+          @bet="bet" 
+          @sendMoney="sendMoney" 
+          @clearChip="clearChip" 
+          @sendSelected="sendSelected"
+          @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
       </div>
       <chuqiulv :type_list="type_list"></chuqiulv>
     </div>
@@ -105,16 +112,20 @@
               ballname: '第一球',
               data: [
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '大'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '小'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '单'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '双'
                 }
               ]
             },
@@ -122,16 +133,20 @@
               ballname: '第二球',
               data: [
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '大'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '小'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '单'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '双'
                 }
               ]
             },
@@ -139,16 +154,20 @@
               ballname: '第三球',
               data: [
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '大'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '小'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '单'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '双'
                 }
               ]
             },
@@ -156,16 +175,20 @@
               ballname: '第四球',
               data: [
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '大'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '小'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '单'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '双'
                 }
               ]
             },
@@ -173,21 +196,26 @@
               ballname: '第五球',
               data: [
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '大'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '小'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '单'
                 },
                 {
-                  num: 1.94
+                  num: 1.94,
+                  no: '双'
                 }
               ]
             }
           ],
           type_list: ["1球大小", "1球单双", "2球大小", "2球单双", "3球大小", "3球单双", "4球大小", "4球单双", "5球大小", "5球单双", "总和大小", "总和单双", "龙虎"],
+          args: {}
         }
       },
       methods: {
@@ -206,6 +234,78 @@
             alert('请选择需要填写下注金额的复选框!!!')
           }
         },
+        sendSelected() {
+          let xz = []
+          let reg = /[^\d]+/g
+          let ballLists = this.$refs.ballList
+          for(let k = 0; k < ballLists.length; k++) {
+            let obj = ballLists[k].getChecked()
+            if(obj.data.length) {
+              for(let i=0;i<obj.data.length;i++) {
+                if(reg.test(obj.data[i].price)) {
+                  alert('输入金额有误，请输入正确的数字！！！')
+                  return
+                }
+              }
+              xz.push({
+                name: obj.ballname ? obj.ballname : '' ,
+                data:obj.data
+              })
+            }
+          }
+          if(!xz.length) {
+            alert('请填写下注金额！！！')
+            return
+          }
+          let args = {
+            user: 2
+          };
+          console.log(xz);
+          xz.forEach((item)=> {
+            console.log(typeof item.name);
+            if (item.name === '') {
+              item.name = '总和-龙虎和'
+            }
+            if(item.name == '第一球') {
+              args['one'] = arg_str(item)
+            } else if(item.name == '第二球') {
+              args['tow'] = arg_str(item)
+            } else if(item.name == '第三球') {
+              args['three'] = arg_str(item)
+            } else if(item.name == '第四球') {
+              args['four'] = arg_str(item)
+            } else if(item.name == '第五球') {
+              args['five'] = arg_str(item)
+            } else if(item.name == '总和-龙虎和') {
+              args['sum'] = arg_str(item)
+            } else if(typeof item.name != 'string') {
+              if (this.radioChecked == '前三') {
+                args['frontS'] = arg_str(item)
+              } else if(this.radioChecked == '中三') {
+                args['mediumS'] = arg_str(item)
+              } else if(this.radioChecked == '后三') {
+                args['postS'] = arg_str(item)
+              }
+            }
+            function arg_str (_item) {
+              let str = '';
+              _item.data.forEach((res)=> {
+                str += res.num + '-' + res.price + ','
+              })
+              return str.substr(0, str.length-1)
+            }
+          })
+          console.log(args);
+          this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+              console.log(res.data);
+              if (res.data.code != "000") {
+                alert(res.data.res)
+              }
+          }, error => {
+              console.log(error);
+              alert('服务器错误或网络异常，请稍后重试');
+          });
+        },
         clearChip() {
           this.$refs.ballList.forEach((el,index) => {
             this.$refs.ballList[index].clearInput()
@@ -215,7 +315,67 @@
           this.$refs.ballList.forEach((el,index) => {
             this.$refs.ballList[index].resetSelected()
           })
+          this.args = {}; //重置
+        },
+        selectNumChange(obj) {
+          let args = this.args;
+          if (obj.witch.indexOf('tab_list') > -1) {
+            obj.option = '总和-龙虎和'
+          }
+          if(obj.option == '第一球') {
+            args['one'] = obj.arr
+          } else if(obj.option == '第二球') {
+            args['tow'] = obj.arr
+          } else if(obj.option == '第三球') {
+            args['three'] = obj.arr
+          } else if(obj.option == '第四球') {
+            args['four'] = obj.arr
+          } else if(obj.option == '第五球') {
+            args['five'] = obj.arr
+          } else if(obj.option == '总和-龙虎和') {
+            args['sum'] = obj.arr
+          } else if (obj.option == '前三') {
+            args['frontS'] = obj.arr
+          } else if(obj.option == '中三') {
+            args['mediumS'] = obj.arr
+          } else if(obj.option == '后三') {
+            args['postS'] = obj.arr
+          }
+          this.args = args;
+        },
+        bet(val) {
+        if (val) {
+          if (Object.keys(this.args).length > 0) {
+            var args = this.args; //这里需要对象的深克隆才能解决此问题（this.args）会变
+            for(let key in args) {
+              args[key] = arg_str(args[key])
+            }
+            args['user'] = 2;
+            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+                this.resetTdOnSelected();
+                console.log(res.data);
+                if (res.data.code != "000") {
+                  alert(res.data.res)
+                }
+            }, error => {
+                this.resetTdOnSelected();
+                console.log(error);
+                alert('服务器错误或网络异常，请稍后重试');
+            });
+            function arg_str (_item) {
+              let str = '';
+              _item.forEach((res)=> {
+                str += res + '-' + val + ','
+              })
+              return str.substr(0, str.length-1)
+            }
+          } else {
+            alert('请至少选择一种玩法');
+          }
+        } else {
+          alert('请填写下注金额');
         }
+      }
       },
       components: {
         ballList,

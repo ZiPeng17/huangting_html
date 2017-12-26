@@ -16,8 +16,8 @@
       </td>
     </tr>
     <tr class="ball_tr_H" v-for="tab_item in info.data" ref="list" @click="selectTr" :data-no="tab_item.no" @mouseover="addclass" @mouseout="removeclass" :class="{'tans': type_index === 2}">
-      <td class="td_1" :width="firstTd" v-if="words.indexOf(tab_item.no)> -1">{{tab_item.no}}</td>
-      <td class="td_1" :width="firstTd" v-else-if="tab_item.no === 0 || tab_item.no" :class="'No_'+tab_item.no"></td>
+      <td class="td_1" :width="firstTd" v-if="words.indexOf(tab_item.no)> -1 && sonIndex.indexOf('ball_list') == -1">{{tab_item.no}}</td>
+      <td class="td_1" :width="firstTd" v-else-if="(tab_item.no === 0 || tab_item.no) && sonIndex.indexOf('ball_list') == -1" :class="'No_'+tab_item.no"></td>
       <td class="td_2" v-if="todayTime" v-show="type_index === 2">
         <label>
           <span class="multiple_Red">{{tab_item.num}}</span>
@@ -47,6 +47,10 @@
       info: {
         type: Object,
         default: {}
+      },
+      sonIndex: { // 表示sided-table组件的调用
+        type: String,
+        default: ''
       },
       simple: {
         type: Boolean,
@@ -86,9 +90,9 @@
       },
       'selectedNumbers': function() {
         if (this.radioShow) {
-          this.$emit('selectNumChange', {arr: this.selectedNumbers, option: this.radioChecked})
+          this.$emit('selectNumChange', {arr: this.selectedNumbers, option: this.radioChecked, witch : this.sonIndex})
         } else {
-          this.$emit('selectNumChange', {arr: this.selectedNumbers, option: this.info.ballname})
+          this.$emit('selectNumChange', {arr: this.selectedNumbers, option: this.info.ballname, witch : this.sonIndex})
         }
       }
     },
