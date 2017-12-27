@@ -170,6 +170,9 @@
         if(this.info.ballname) {
           obj.ballname = this.info.ballname
         }
+        if (this.sonIndex) {
+          obj['sonIndex'] = this.sonIndex;
+        }
         obj.data = []
         for(let i=0; i<els.length;i++) {
           let input = els[i].getElementsByClassName('inp1')[0]

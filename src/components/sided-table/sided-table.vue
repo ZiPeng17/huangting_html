@@ -258,7 +258,7 @@
             return
           }
           let args = {
-            user: 2
+            user: this.global.userInfo.id
           };
           console.log(xz);
           xz.forEach((item)=> {
@@ -298,9 +298,7 @@
           console.log(args);
           this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
               console.log(res.data);
-              if (res.data.code != "000") {
-                alert(res.data.res)
-              }
+              alert(res.data.res)
           }, error => {
               console.log(error);
               alert('服务器错误或网络异常，请稍后重试');
@@ -350,13 +348,11 @@
             for(let key in args) {
               args[key] = arg_str(args[key])
             }
-            args['user'] = 2;
+            args['user'] = this.global.userInfo.id;
             this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
                 this.resetTdOnSelected();
                 console.log(res.data);
-                if (res.data.code != "000") {
-                  alert(res.data.res)
-                }
+                alert(res.data.res)
             }, error => {
                 this.resetTdOnSelected();
                 console.log(error);

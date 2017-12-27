@@ -21,7 +21,7 @@
         <table cellspacing="1" cellpadding="0" border="0" width="751">
           <tr>
             <td v-for="(item,index) in totalCompare" class="ball-name" ref="tableList">
-              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="187" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'totalCompare'+index" ref="ballList" class="ball-list"></ball-list>
+              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="187" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'longHu'" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -30,7 +30,7 @@
         <table cellspacing="1" cellpadding="0" border="0" width="751">
           <tr>
             <td v-for="(item,index) in longHu" class="ball-name" ref="tableList">
-              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="250" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'longHu'+index" ref="ballList" class="ball-list"></ball-list>
+              <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="250" :firstTd="45.5" @selectNumChange="selectNumChange" :sonIndex="'longHu'" ref="ballList" class="ball-list"></ball-list>
             </td>
           </tr>
         </table>
@@ -41,7 +41,7 @@
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
               <td v-for="(item,index) in centerTabList" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList1'+index" ref="ballList" class="ball-list"></ball-list>
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList1'" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
@@ -51,7 +51,7 @@
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
               <td v-for="(item,index) in centerTabList" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList2'+index" ref="ballList" class="ball-list"></ball-list>
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList2'" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
@@ -61,7 +61,7 @@
           <table cellspacing="1" cellpadding="0" border="0">
             <tr>
               <td v-for="(item,index) in centerTabList" class="ball-name" ref="tableList">
-                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList3'+index" ref="ballList" class="ball-list"></ball-list>
+                <ball-list :todayTime="todayTime" :info="item" :type_index="type_index" :thShow="false" :width="150" @selectNumChange="selectNumChange" :sonIndex="'centerTabList3'" ref="ballList" class="ball-list"></ball-list>
               </td>
             </tr>
           </table>
@@ -388,39 +388,47 @@
         this.args = {}
       },
       selectNumChange(obj) {
-
-        console.log(obj.arr);
+        Array.prototype.unique3 = function(){
+          var res = [];
+          var json = {};
+          for(var i = 0; i < this.length; i++){
+            if(!json[this[i]]){
+            res.push(this[i]);
+            json[this[i]] = 1;
+            }
+          }
+          return res;
+        }
+        console.log(obj.witch);
         let args = this.args;
         if (obj.witch) {
-          args[obj.witch] = obj.arr
-        }
-        let arr = [];
-        for(let key in args) {
-          if (key != 'one' && key != 'user') {
-            arr = arr.concat(args[key])
+          if (obj.witch == 'longHu') {
+            args['sum'] = ((args['sum'] || []).concat(obj.arr)).unique3()
+          } else if (obj.witch == 'centerTabList1') {
+            args['frontS'] = ((args['frontS'] || []).concat(obj.arr)).unique3()
+          } else if (obj.witch == 'centerTabList2') {
+            args['mediumS'] = ((args['mediumS'] || []).concat(obj.arr)).unique3()
+          } else if (obj.witch == 'centerTabList3') {
+            args['postS'] = ((args['postS'] || []).concat(obj.arr)).unique3()
+          } else {
+            args['one'] = ((args['one'] || []).concat(obj.arr)).unique3()
           }
         }
-        args['one'] = arr;
+        this.args = args;
 
       },
       bet(val) {
         if (val) {
           if (Object.keys(this.args).length > 0) {
             var args = this.args; //这里需要对象的深克隆才能解决此问题（this.args）会变
-            let _args = {};
             for(let key in args) {
-              if (key == 'one') {
-                _args['one'] = arg_str(args[key]);
-                break;
-              }
+              args[key] = arg_str(args[key])
             }
-            _args['user'] = 2;
-            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', _args, {emulateJSON:true}).then(res => {
+            args['user'] = this.global.userInfo.id;
+            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
                 this.resetTdOnSelected();
                 console.log(res.data);
-                if (res.data.code != "000") {
-                  alert(res.data.res)
-                }
+                alert(res.data.res)
             }, error => {
                 this.resetTdOnSelected();
                 console.log(error);
@@ -455,6 +463,7 @@
             }
             xz.push({
               name: obj.ballname ? obj.ballname : '' ,
+              sonIndex: obj.sonIndex ? obj.sonIndex : '' ,
               data:obj.data
             })
           }
@@ -463,29 +472,60 @@
           alert('请填写下注金额！！！')
           return
         }
-        let args = {
-          user: 2
-        };
-        let str = '';
+        let args = {};
         console.log(xz);
         xz.forEach((item)=> {
-          console.log(typeof item.name);
-           str += arg_str(item)
-          function arg_str (_item) {
-            let _str = '';
-            _item.data.forEach((res)=> {
-              _str += res.num + '-' + res.price + ','
-            })
-            return _str
+          if (item.sonIndex == 'longHu') {
+            if (args['sum']) {
+              args['sum'] += arg_str(item.data);
+            } else {
+              args['sum'] = '';
+              args['sum'] += arg_str(item.data);
+            } 
+          } else if (item.sonIndex == 'centerTabList1') {
+            if (args['frontS']) {
+              args['frontS'] += arg_str(item.data);
+            } else {
+              args['frontS'] = '';
+              args['frontS'] += arg_str(item.data);
+            } 
+          } else if (item.sonIndex == 'centerTabList2') {
+            if (args['mediumS']) {
+              args['mediumS'] += arg_str(item.data);
+            } else {
+              args['mediumS'] = '';
+              args['mediumS'] += arg_str(item.data);
+            } 
+          } else if (item.sonIndex == 'centerTabList3') {
+            if (args['postS']) {
+              args['postS'] += arg_str(item.data);
+            } else {
+              args['postS'] = '';
+              args['postS'] += arg_str(item.data);
+            } 
+          } else {
+            if (args['one']) {
+              args['one'] += arg_str(item.data);
+            } else {
+              args['one'] = '';
+              args['one'] += arg_str(item.data);
+            } 
           }
         })
-        args['one'] = str.substr(0, str.length-1)
-        console.log(args);
+        function arg_str (_item) {
+          let str = '';
+          _item.forEach((res)=> {
+            str += res.num + '-' + res.price + ','
+          })
+          return str
+        }
+        for (let k in args) {
+          args[k] = args[k].substr(0, args[k].length-1)
+        }
+        args['user'] = this.global.userInfo.id;
         this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
             console.log(res.data);
-            if (res.data.code != "000") {
-              alert(res.data.res)
-            }
+            alert(res.data.res)
         }, error => {
             console.log(error);
             alert('服务器错误或网络异常，请稍后重试');

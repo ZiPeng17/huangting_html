@@ -109,7 +109,7 @@
           this.lotteryTime =  lotteryMinute + ':' + lotterySecond
           if(sealingTime <= 0) {
             this.sealingTime = '00:00'
-            this.$emit('timeOver', false)
+            // this.$emit('timeOver', false)
           }else {
             this.sealingTime = sealingMinute + ':' + sealingSecond
           }

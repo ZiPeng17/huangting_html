@@ -18,6 +18,10 @@ Vue.use(VueRouter);
 //   template: '<App/>',
 //   components: { App }
 // })
+
+import global_config from './config.js'
+Vue.prototype.global = global_config
+
 var router = new VueRouter({
   routes: [
     //首页
