@@ -31,7 +31,7 @@
       @sendSelected="sendSelected" 
       @resetTdOnSelected="resetTdOnSelected" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
-    <chuqiulv :type_list="type_list"></chuqiulv>
+    <chuqiulv :type_list="type_list" v-if="false"></chuqiulv>
   </div>
 </template>
 
@@ -76,43 +76,43 @@
               },
               {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -137,43 +137,43 @@
               },
               {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -198,43 +198,43 @@
               },
               {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -259,43 +259,43 @@
               },
               {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -320,43 +320,43 @@
               },
               {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -389,7 +389,7 @@
               },
               {
                 no: '和',
-                num: 1.94
+                num: 9.158
               }
             ]
           },
@@ -398,23 +398,23 @@
             data: [
               {
                 no: '豹子',
-                num: 1.94
+                num: 69.9
               },
               {
                 no: '顺子',
-                num: 1.94
+                num: 12.9
               },
               {
                 no: '对子',
-                num: 1.94
+                num: 2.1
               },
               {
                 no: '半顺',
-                num: 1.94
+                num: 1.4
               },
               {
                 no: '杂六',
-                num: 1.94
+                num: 1.9
               }
             ]
 
@@ -458,14 +458,13 @@
       },
       sendSelected() {
         let xz = []
-        let reg = /[^\d]+/g
         let ballLists = this.$refs.ballList
         for(let k = 0; k < ballLists.length; k++) {
           let obj = ballLists[k].getChecked()
           if(obj.data.length) {
             for(let i=0;i<obj.data.length;i++) {
-              if(reg.test(obj.data[i].price)) {
-                alert('输入金额有误，请输入正确的数字！！！')
+              if(!this.inputReg.test(obj.data[i].price)) {
+                alert('输入金额('+obj.data[i].price+')有误，下注金额需是2-50000之间的整数！！！')
                 return
               }
             }
@@ -573,7 +572,7 @@
         this.args = args;
       },
       bet(val) {
-        if (val) {
+        if (this.inputReg.test(val)) {
           if (Object.keys(this.args).length > 0) {
             var args = this.args; //这里需要对象的深克隆才能解决此问题（this.args）会变
             for(let key in args) {
@@ -600,7 +599,7 @@
             alert('请至少选择一种玩法');
           }
         } else {
-          alert('请填写下注金额');
+          alert('输入金额('+val+')有误，下注金额需是2-50000之间的整数！！！');
         }
       }
     },

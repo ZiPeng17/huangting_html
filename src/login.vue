@@ -112,7 +112,7 @@ export default {
           if (res.data.res == 1) {
             this.show_login = false;
             this.global.userInfo = res.data.uid;
-            // window.sessionStorage.setItem("userinfo", JSON.stringify(res.data.uid));
+            window.sessionStorage.setItem("userinfo", JSON.stringify(res.data.uid));
           } else {
             alert(res.data.uid)
           }

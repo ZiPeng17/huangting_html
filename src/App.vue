@@ -9,7 +9,7 @@
       <history-lottery v-else-if="show_top_menu.currIndex === 5"></history-lottery>
       <rule v-else-if="show_top_menu.currIndex === 6"></rule>
     </div>
-    <div v-else>
+    <div v-else class="content">
       <rank-list></rank-list>
       <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin" @select_type="select_type"></lottery-info>
       <div v-if="currentIndex === 0">
@@ -84,6 +84,14 @@ export default {
   },
   created() {
     this.beginTime();
+    if (!this.global.userInfo.id) {
+      var user = JSON.parse(window.sessionStorage.getItem('userinfo'))
+      if (user) {
+        this.global.userInfo.id = user.id
+      } else {
+        this.$router.back(-1)
+      }
+    }
   },
   computed: {
     flag() {
@@ -151,5 +159,8 @@ export default {
   font-size: 12px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
+}
+.content {
+  padding-bottom: 50px;
 }
 </style>

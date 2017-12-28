@@ -164,7 +164,6 @@
 <style scoped>
   .chuqiulv {
     width: 700px;
-    margin-bottom:50px;
     text-align: center;
     line-height: 24px;
     color: #4a1a04;

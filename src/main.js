@@ -21,6 +21,7 @@ Vue.use(VueRouter);
 
 import global_config from './config.js'
 Vue.prototype.global = global_config
+Vue.prototype.inputReg = /^[2-9]{1}$|^[1-4]\d{1,4}$|^500000$/
 
 var router = new VueRouter({
   routes: [

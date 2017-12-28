@@ -24,7 +24,7 @@
       @resetTdOnSelected="resetTdOnSelected"
       @bet="bet" ref="tzMoney"></tz-money>
     <!-- 出球率 -->
-    <chuqiulv :type_list="type_list"></chuqiulv>
+    <!-- <chuqiulv :type_list="type_list"></chuqiulv> -->
   </div>
 </template>
 
@@ -51,60 +51,44 @@
             ballname: '第一球',
             data: [
               {
-                no: '大',
-                num: 1.94
-              },
-              {
-                no: '小',
-                num: 1.94
-              },
-              {
-                no: '单',
-                num: 1.94
-              },
-              {
-                no: '双',
-                num: 1.94
-              },
-              {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -112,60 +96,44 @@
             ballname: '第二球',
             data: [
               {
-                no: '大',
-                num: 1.94
-              },
-              {
-                no: '小',
-                num: 1.94
-              },
-              {
-                no: '单',
-                num: 1.94
-              },
-              {
-                no: '双',
-                num: 1.94
-              },
-              {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -173,60 +141,44 @@
             ballname: '第三球',
             data: [
               {
-                no: '大',
-                num: 1.94
-              },
-              {
-                no: '小',
-                num: 1.94
-              },
-              {
-                no: '单',
-                num: 1.94
-              },
-              {
-                no: '双',
-                num: 1.94
-              },
-              {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -234,60 +186,44 @@
             ballname: '第四球',
             data: [
               {
-                no: '大',
-                num: 1.94
-              },
-              {
-                no: '小',
-                num: 1.94
-              },
-              {
-                no: '单',
-                num: 1.94
-              },
-              {
-                no: '双',
-                num: 1.94
-              },
-              {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -295,60 +231,44 @@
             ballname: '第五球',
             data: [
               {
-                no: '大',
-                num: 1.94
-              },
-              {
-                no: '小',
-                num: 1.94
-              },
-              {
-                no: '单',
-                num: 1.94
-              },
-              {
-                no: '双',
-                num: 1.94
-              },
-              {
                 no: 0,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 1,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 2,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 3,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 4,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 5,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 6,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 7,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 8,
-                num: 1.94
+                num: 9.697
               },
               {
                 no: 9,
-                num: 1.94
+                num: 9.697
               },
             ]
           },
@@ -357,31 +277,31 @@
           ballname: '总和-龙虎和',
           data: [{
             no: '总和大',
-            num: 1.94
+            num: 9.697
           },
             {
               no: '总和小',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '总和单',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '总和双',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '龙',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '虎',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '和',
-              num: 1.94
+              num: 9.697
             }
           ]
         },
@@ -390,23 +310,23 @@
           data: [
             {
               no: '豹子',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '顺子',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '对子',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '半顺',
-              num: 1.94
+              num: 9.697
             },
             {
               no: '杂六',
-              num: 1.94
+              num: 9.697
             }
           ]
 
@@ -491,7 +411,7 @@
         this.args = args;
       },
       bet(val) {
-        if (val) {
+        if (this.inputReg.test(val)) {
           if (Object.keys(this.args).length > 0) {
             var args = this.args; //这里需要对象的深克隆才能解决此问题（this.args）会变
             for(let key in args) {
@@ -518,19 +438,18 @@
             alert('请至少选择一种玩法');
           }
         } else {
-          alert('请填写下注金额');
+          alert('输入金额('+val+')有误，下注金额需是2-50000之间的整数！！！');
         }
       },
       sendSelected() {
         let xz = []
-        let reg = /[^\d]+/g
         let ballLists = this.$refs.ballList
         for(let k = 0; k < ballLists.length; k++) {
           let obj = ballLists[k].getChecked()
           if(obj.data.length) {
             for(let i=0;i<obj.data.length;i++) {
-              if(reg.test(obj.data[i].price)) {
-                alert('输入金额有误，请输入正确的数字！！！')
+              if(!this.inputReg.test(obj.data[i].price)) {
+                alert('输入金额('+obj.data[i].price+')有误，下注金额需是2-50000之间的整数！！！')
                 return
               }
             }
