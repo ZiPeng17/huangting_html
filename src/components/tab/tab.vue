@@ -1,12 +1,15 @@
 <template>
   <div class="top">
     <div class="title">重庆时时彩</div>
-    <span v-for="(item,index) in tabArr"
-          @click="selectItem(item.text,index)"
-          class="top-tab-bar"
-          :class="[currentIndex === index ? 'select-top-tab-bar' : '']"
-    >
-      {{item.text}}</span>
+    <div>
+      <img class="top-left-img" src="/static/image/topmenu_top2.jpg" width="231" height="29">
+      <span v-for="(item,index) in tabArr"
+            @click="selectItem(item.text,index)"
+            class="top-tab-bar"
+            :class="[currentIndex === index ? 'select-top-tab-bar' : '']"
+      >
+        {{item.text}}</span>
+    </div>
   </div>
 </template>
 
@@ -39,11 +42,19 @@
 <style scoped>
   .title {
     padding: 15px;
+    padding-left: 225px;
+    background: #46210d;
+    color: rgb(254, 215, 173);
+    font-weight: bold;
+    font-size: 17px;
   }
   .top {
-    padding: 4px 0 4px 10px;
+    padding: 0 0 4px 0;
     background: #feebd4;
     border-bottom: 1px solid #da9f80;
+  }
+  .top-left-img {
+    vertical-align: middle;
   }
   .top-tab-bar {
     position: relative;

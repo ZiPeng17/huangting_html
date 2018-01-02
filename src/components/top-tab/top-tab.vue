@@ -4,7 +4,7 @@
             <span v-for="(item, index) in tabArr">
                 <span @click="selectItem(item.text,index)" class="T_a">{{item.text}}</span> | 
             </span>
-            <span class="quit">退出</span>
+            <span class="quit" @click="quit">退出</span>
         </div>
     </div>
 </template>
@@ -29,6 +29,11 @@
       selectItem(text, index){
         this.$emit('selectTopText', text, index)
         this.currentIndex = index
+      },
+      quit() {
+          this.global.userInfo = {};
+          window.sessionStorage.removeItem('userinfo');
+          this.$router.back(-1);
       }
     }
   }

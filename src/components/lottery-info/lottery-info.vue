@@ -136,6 +136,7 @@
 <style scoped>
   .lottery-info{
     padding: 20px;
+    padding-left: 0;
   }
   .marginB{
     margin-bottom:7px;
