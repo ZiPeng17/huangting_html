@@ -6,7 +6,7 @@
     </div>
     <div class="fixed-bottom"></div>
     <div class="clear">
-      <div class="left lsection">
+      <div class="page-left lsection">
         <table border="0" cellpadding="0" cellspacing="1" class="t_list" width="210">
           <tbody>
             <tr><td class="t_list_caption" colspan="2">请检视您的账户</td> </tr>
@@ -64,7 +64,7 @@
           </tbody>
         </table>
       </div>
-      <div class="left rsection">
+      <div class="page-left rsection">
         <div v-if="show_top_menu.state">
           <today-order v-if="show_top_menu.currIndex === 2"></today-order>
           <bet-detail v-else-if="show_top_menu.currIndex === 3"></bet-detail>
@@ -72,7 +72,7 @@
           <history-lottery v-else-if="show_top_menu.currIndex === 5"></history-lottery>
           <rule v-else-if="show_top_menu.currIndex === 6"></rule>
         </div>
-        <div v-else class="content">
+        <div v-else class="app-content">
           <rank-list></rank-list>
           <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin" @select_type="select_type"></lottery-info>
           <div v-if="currentIndex === 0">
@@ -276,7 +276,7 @@ export default {
   background: url('/static/image/down_b.jpg') repeat-x;
   z-index: 300;
 }
-.content {
+.app-content {
   padding: 0 0 50px 10px;
 }
 .clrBtn {
@@ -324,7 +324,7 @@ export default {
   visibility: hidden;
   clear: both;
 }
-.left {
+.page-left {
   float:left;
 }
 .lsection {
@@ -334,8 +334,5 @@ export default {
 }
 .rsection {
   overflow-y: scroll;
-}
-.right {
-  float: right;
 }
 </style>
