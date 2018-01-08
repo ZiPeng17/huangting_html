@@ -2,13 +2,17 @@
   <div class="lottery-info">
     <div class="marginB top-info">
       <div class="top-info-l">
-        <p>重庆时时彩【第{{lottery.thisPhase}}期】</p>
-        <p class="red">今天輸贏： 0</p>
+        <p>重庆时时彩【第{{parseFloat(lottery.period)+1}}期】</p>
+        <p class="red">今天輸贏： {{lottery.money}}</p>
       </div>
       <div class="top-info-2">
-        <p class="date">{{lottery.prevPhase}}期 开奖号码 </p>
-        <p class="num-wrapper">
-          <i v-for="num in nums" class="num" :class=" 'No_' + num"></i>
+        <p class="date">{{lottery.period}}期 开奖号码 </p>
+        <p class="num-wrapper" v-if="lottery.num">
+          <i class="num" :class=" 'No_' + lottery.num.one"></i>
+          <i class="num" :class=" 'No_' + lottery.num.tow"></i>
+          <i class="num" :class=" 'No_' + lottery.num.three"></i>
+          <i class="num" :class=" 'No_' + lottery.num.four"></i>
+          <i class="num" :class=" 'No_' + lottery.num.five"></i>
         </p>
       </div>
 

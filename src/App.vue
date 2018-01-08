@@ -73,7 +73,7 @@
           <rule v-else-if="show_top_menu.currIndex === 6"></rule>
         </div>
         <div v-else class="app-content">
-          <rank-list></rank-list>
+          <!-- <rank-list></rank-list> -->
           <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin" @select_type="select_type"></lottery-info>
           <div v-if="currentIndex === 0">
             <total-table :todayTime="flag" :type_index="type_index"></total-table>
@@ -131,8 +131,7 @@ export default {
       top_title: "整合",
       title: "整合",
       lottery: {
-        thisPhase: "20171213005",
-        prevPhase: "20171213004",
+        period: "20171213004",
         lotteryTime: 100,
         endTime: "09:10",
         startTime: "01:20"
@@ -163,6 +162,16 @@ export default {
       // console.log(res.data);
       this.lotter_data = res.data;
       this.switch_data(1);
+    }, error => {
+      console.log(error);
+    });
+    this.$http.post('http://dcshanxi.xnfhtech.com/Admin/Api/getperlist').then(res => {
+      // console.log(res.data);
+      if (res.data.code == '000') {
+        this.lottery = res.data
+      } else {
+        alert(res.data.msg)
+      }
     }, error => {
       console.log(error);
     });
@@ -208,16 +217,17 @@ export default {
     switch_data(num) {
       this.row_data = [];
       this.lotter_data.forEach(e => {
+        let no = e.num.substr(-3);
         if (num === 1) {
-          this.row_data.push({ no: e.num, numbers: [e.five, e.four, e.three, e.tow, e.one]});
+          this.row_data.push({ no, numbers: [e.five, e.four, e.three, e.tow, e.one]});
         } else if (num === 2) {
-          this.row_data.push({ no: e.num, numbers: [size(e.five), size(e.four), size(e.three), size(e.tow), size(e.one)]});
+          this.row_data.push({ no, numbers: [size(e.five), size(e.four), size(e.three), size(e.tow), size(e.one)]});
           function size (n) {
             let no = parseInt(n);
             return no > 4 ? '大' : '小'
           }
         } else {
-          this.row_data .push({ no: e.num, numbers: [size(e.five), size(e.four), size(e.three), size(e.tow), size(e.one)]});
+          this.row_data.push({ no, numbers: [size(e.five), size(e.four), size(e.three), size(e.tow), size(e.one)]});
           function size (n) {
             let no = parseInt(n);
             return no % 2 === 0 ? '双' : '单'
