@@ -295,7 +295,7 @@
         },
         created() {
             this.pages = Math.ceil(this.data.length/this.per_num);
-            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/Getlist').then(res => {
+            this.$http.post('http://dcshanxi.xnfhtech.com/Admin/Api/Getlist').then(res => {
                 console.log(res.data);
                 this.data = res.data;
             }, error => {

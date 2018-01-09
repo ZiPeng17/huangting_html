@@ -21,7 +21,13 @@ Vue.use(VueRouter);
 
 import global_config from './config.js'
 Vue.prototype.global = global_config
-Vue.prototype.inputReg = /^[2-9]{1}$|^[1-4]\d{1,4}$|^500000$/
+Vue.prototype.inputReg = /^[2-9]{1}$|^[1-9]{1}\d{1,3}$|^[1-4]{1}\d{4}$|^50000$/
+Vue.prototype.session = (money) => {
+  var user = JSON.parse(window.sessionStorage.getItem("userinfo"));
+  user.money = money;
+  window.sessionStorage.setItem("userinfo", JSON.stringify(user));
+  location.reload()
+}
 
 var router = new VueRouter({
   routes: [

@@ -107,7 +107,7 @@ export default {
         name: this.username.trim(),
         paw: this.password.trim()
       };
-      this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/login', args, {emulateJSON:true}).then(res => {
+      this.$http.post(this.global.base_url + 'Admin/Api/login', args, {emulateJSON:true}).then(res => {
           console.log(res.data);
           if (res.data.res == 1) {
             this.show_login = false;

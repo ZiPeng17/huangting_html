@@ -425,9 +425,10 @@
               args[key] = arg_str(args[key])
             }
             args['user'] = this.global.userInfo.id;
-            this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+            this.$http.post(this.global.base_url + '/Admin/Api/grtfrom', args, {emulateJSON:true}).then(res => {
                 this.resetTdOnSelected();
                 console.log(res.data);
+                this.session(res.data.money);
                 alert(res.data.res)
             }, error => {
                 this.resetTdOnSelected();
@@ -522,8 +523,9 @@
           args[k] = args[k].substr(0, args[k].length-1)
         }
         args['user'] = this.global.userInfo.id;
-        this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/grtfrom', args, {emulateJSON:true}).then(res => {
+        this.$http.post(this.global.base_url + '/Admin/Api/grtfrom', args, {emulateJSON:true}).then(res => {
             console.log(res.data);
+            this.session(res.data.money);
             alert(res.data.res)
         }, error => {
             console.log(error);

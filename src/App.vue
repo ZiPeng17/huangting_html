@@ -12,7 +12,7 @@
             <tr><td class="t_list_caption" colspan="2">请检视您的账户</td> </tr>
             <tr>
               <td class="t_td_caption_1" width="64">帐户名称</td>
-              <td class="t_td_text" width="146">{{global.userInfo.name}}</td>
+              <td class="t_td_text" width="146">{{userInfo.name}}</td>
             </tr>
             <tr>
               <td class="t_td_caption_1">开放赌盘</td>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
               <td class="t_td_caption_1">可用金额</td>
-              <td class="t_td_text">{{global.userInfo.money}}</td>
+              <td class="t_td_text">{{userInfo.money}}</td>
             </tr>
             <tr>
               <td class="t_td_caption_1">已用金额</td>
@@ -145,7 +145,7 @@ export default {
       todayTime: true, //当前的时间是否开盘  false代表封盘状态   开盘时间07 ---  16  点
       timeFlag: true, //封盘倒计时结束开始封盘  true 代表开盘状态  false代表封盘状态
       lotter_data: [],
-      row_data: [],
+      row_data: []
     };
   },
   created() {
@@ -158,14 +158,14 @@ export default {
         this.$router.back(-1);
       }
     }
-    this.$http.post('http://dcshanxi.xnfhtech.com/Home/Api/Getlist').then(res => {
+    this.$http.post(this.global.base_url + '/Admin/Api/Getlist').then(res => {
       // console.log(res.data);
       this.lotter_data = res.data;
       this.switch_data(1);
     }, error => {
       console.log(error);
     });
-    this.$http.post('http://dcshanxi.xnfhtech.com/Admin/Api/getperlist').then(res => {
+    this.$http.post(this.global.base_url + '/Admin/Api/getperlist', {user: this.global.userInfo.id}, {emulateJSON:true}).then(res => {
       // console.log(res.data);
       if (res.data.code == '000') {
         this.lottery = res.data
@@ -179,6 +179,9 @@ export default {
   computed: {
     flag() {
       return this.todayTime && this.timeFlag;
+    },
+    userInfo() {
+      return this.global.userInfo
     }
   },
   methods: {
