@@ -151,9 +151,16 @@ export default {
   created() {
     this.beginTime();
     if (!this.global.userInfo.id) {
-      var user = JSON.parse(window.sessionStorage.getItem("userinfo"));
-      if (user) {
-        this.global.userInfo = user;
+      console.log(1111);
+      var _user = window.sessionStorage.getItem("userinfo");
+      if (_user) {
+        var user = JSON.parse(_user);
+        console.log(2222);
+        if (user) {
+          this.global.userInfo = user;
+        } else {
+          this.$router.back(-1);
+        }
       } else {
         this.$router.back(-1);
       }

@@ -107,14 +107,14 @@ export default {
         name: this.username.trim(),
         paw: this.password.trim()
       };
-      this.$http.post(this.global.base_url + 'Admin/Api/login', args, {emulateJSON:true}).then(res => {
+      this.$http.post(this.global.base_url + '/Admin/Api/login', args, {emulateJSON:true}).then(res => {
           console.log(res.data);
-          if (res.data.res == 1) {
+          if (res.data.code == "000") {
             this.show_login = false;
-            this.global.userInfo = res.data.uid;
-            window.sessionStorage.setItem("userinfo", JSON.stringify(res.data.uid));
+            this.global.userInfo = res.data.user;
+            window.sessionStorage.setItem("userinfo", JSON.stringify(res.data.user));
           } else {
-            alert(res.data.uid)
+            alert(res.data.msg)
           }
       }, error => {
           console.log(error);
@@ -155,6 +155,8 @@ table {
   border-color: grey;
 }
 .body {
+  width: 100%;
+  height: 100%;
   margin-left: 0px;
   margin-top: 0px;
   margin-right: 0px;

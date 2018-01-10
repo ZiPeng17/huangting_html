@@ -26,7 +26,7 @@ Vue.prototype.session = (money) => {
   var user = JSON.parse(window.sessionStorage.getItem("userinfo"));
   user.money = money;
   window.sessionStorage.setItem("userinfo", JSON.stringify(user));
-  location.reload()
+  // location.reload()
 }
 
 var router = new VueRouter({
