@@ -53,24 +53,13 @@
       data(){
         return {
           type_index: 2,
-          nums: [8,0,1,1,9],
           lotteryTime: '',  //开奖时间
           sealingTime: '',  //封盘时间
           refTime: 45       //刷新时间
         }
       },
       created() {
-        this.timer = null
-        this.refreshTimer = null
-        this.copyTime = 0
-        this.begin()
-        this.refreshTime()
-      },
-      mounted() {
-        window.addEventListener('beforeunload',() =>{
-          clearTimeout(this.timer)
-//          localStorage.setItem('sealingTime',this.copyTime)
-        })
+        this._timeInit(this.lottery.tt)
       },
       methods:{
         select_type: function (i) {
@@ -78,30 +67,10 @@
           this.$emit('select_type', i)
         },
         refreshTime() {
-          this.refTime = 45
-          clearInterval(this.refreshTimer)
-          this.refreshTimer = setInterval(()=> {
-            if(this.refTime <= 0) {
-              this.refTime = 46
-            }
-            this.refTime --
-          },1000)
-        },
-        begin() {
-          if(!this.todayTime) {
-            localStorage.setItem('sealingTime',0)
-            return
-          }
-          let time = localStorage.getItem('sealingTime')
-          time = Number(time)
-          if(time <= 0) {
-            time = this.lottery.lotteryTime
-          }
-          this._timeInit(time)
+          location.reload() // 刷新整个网页
         },
         _timeInit(time) {
-          this.copyTime = time
-          let  sealingTime = time - 30
+          let sealingTime = time - 30
           let lotteryMinute = Math.floor(time / 60)
           let sealingMinute = Math.floor(sealingTime / 60)
           let lotterySecond = time - lotteryMinute *60
@@ -117,19 +86,16 @@
           }else {
             this.sealingTime = sealingMinute + ':' + sealingSecond
           }
+          this.refTime = time;
           if(time <= 0) {
             lotteryMinute = '00'
             lotterySecond = '00'
-            clearTimeout(this.timer)
-            setTimeout(() => {
-              this.$emit('timeBegin', true)
-              this.begin()
-            }, 2000)
-          }else {
+            this.$emit('timeBegin', true)
+          } else {
             time --
-            this.timer = setTimeout(() => {
+            setTimeout(()=>{
               this._timeInit(time)
-            },1000)
+            }, 1000)
           }
 
         }

@@ -74,7 +74,7 @@
         </div>
         <div v-else class="app-content">
           <!-- <rank-list></rank-list> -->
-          <lottery-info :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin" @select_type="select_type"></lottery-info>
+          <lottery-info v-if="lottery.code" :todayTime="todayTime" :lottery="lottery" :title="title" @timeOver="timeOver" @timeBegin="timeBegin" @select_type="select_type"></lottery-info>
           <div v-if="currentIndex === 0">
             <total-table :todayTime="flag" :type_index="type_index"></total-table>
           </div>
@@ -130,12 +130,7 @@ export default {
     return {
       top_title: "整合",
       title: "整合",
-      lottery: {
-        period: "20171213004",
-        lotteryTime: 100,
-        endTime: "09:10",
-        startTime: "01:20"
-      },
+      lottery: {},
       currentIndex: 0,
       type_index: 2,
       show_top_menu: {
@@ -172,16 +167,7 @@ export default {
     }, error => {
       console.log(error);
     });
-    this.$http.post(this.global.base_url + '/Admin/Api/getperlist', {user: this.global.userInfo.id}, {emulateJSON:true}).then(res => {
-      // console.log(res.data);
-      if (res.data.code == '000') {
-        this.lottery = res.data
-      } else {
-        alert(res.data.msg)
-      }
-    }, error => {
-      console.log(error);
-    });
+    this.get_lottery_data()
   },
   computed: {
     flag() {
@@ -192,6 +178,18 @@ export default {
     }
   },
   methods: {
+    get_lottery_data() {
+      this.$http.post(this.global.base_url + '/Admin/Api/getperlist', {user: this.global.userInfo.id}, {emulateJSON:true}).then(res => {
+        // console.log(res.data);
+        if (res.data.code == '000') {
+          this.lottery = res.data
+        } else {
+          alert(res.data.msg)
+        }
+      }, error => {
+        console.log(error);
+      });
+    },
     select_type(i) {
       this.type_index = i;
     },
@@ -210,6 +208,7 @@ export default {
     },
     timeBegin(bool) {
       this.timeFlag = bool;
+      location.reload() // 刷新整个网页
     },
     beginTime() {
       let date = new Date();
