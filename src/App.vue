@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="fixed-top">
-      <top-tab @selectTopText="selectTopText"></top-tab>
+      <top-tab @selectTopText="selectTopText" :state="show_top_menu.state"></top-tab>
       <tab @selectText="selectText"></tab>
     </div>
     <div class="fixed-bottom"></div>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
               <td class="t_td_caption_1">可用金额</td>
-              <td class="t_td_text">{{userInfo.money}}</td>
+              <td class="t_td_text" id="user_money">{{userInfo.money}}</td>
             </tr>
             <tr>
               <td class="t_td_caption_1">已用金额</td>

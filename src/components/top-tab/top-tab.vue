@@ -2,7 +2,7 @@
     <div class="top-box-wrap">
         <div class="top-box">
             <span v-for="(item, index) in tabArr">
-                <span @click="selectItem(item.text,index)" class="T_a">{{item.text}}</span> | 
+                <span @click="selectItem(item.text,index)" :class="[state && index === currentIndex ? 'active' : '', 'T_a']">{{item.text}}</span> | 
             </span>
             <span class="quit" @click="quit">退出</span>
         </div>
@@ -11,6 +11,12 @@
 
 <script>
   export default {
+    props: {
+        state: {
+            type: Boolean,
+            default: false
+        }
+    },
     data(){
       return {
         currentIndex: 0,
@@ -54,6 +60,9 @@
         color: #f1ad45;
         font-weight: bold;
         cursor: pointer;
+    }
+    .active {
+        color: #f1ad45;
     }
     .quit {
         color: #baff00;

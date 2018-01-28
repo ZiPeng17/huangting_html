@@ -57,18 +57,8 @@ export default {
         }
     },
   created() {
-      
-      this.today()
-      this.$http.post(this.global.base_url + '/Admin/Api/betlist', {user: this.global.userInfo.id}, {emulateJSON:true}).then(res => {
-        console.log(res.data);
-        if (res.data.code == "000") {
-          this.detail = res.data.res
-        } else {
-          alert(res.data.msg)
-        }
-      }, error => {
-        console.log(error);
-      });
+    this.today()
+    this.submit()
   },
   mounted() {
       laydate.render({ 
@@ -103,7 +93,17 @@ export default {
           return str;
       },
       submit() {
-          // 调接口
+        // 调接口
+        this.$http.post(this.global.base_url + '/Admin/Api/betlist', {user: this.global.userInfo.id, starttime: this.start_date, endtime: this.end_date}, {emulateJSON:true}).then(res => {
+            // console.log(res.data);
+            if (res.data.code == "000") {
+            this.detail = res.data.res
+            } else {
+            alert(res.data.msg)
+            }
+        }, error => {
+            console.log(error);
+        });
       }
   }
 }

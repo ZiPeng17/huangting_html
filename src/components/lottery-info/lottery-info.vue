@@ -7,7 +7,7 @@
       </div>
       <div class="top-info-2">
         <p class="date">{{lottery.period}}期 开奖号码 </p>
-        <p class="num-wrapper" v-if="lottery.num">
+        <p class="num-wrapper" v-if="lottery.num && lottery.num.length > 0">
           <i class="num" :class=" 'No_' + lottery.num[0].one">
             </i><i class="num" :class=" 'No_' + lottery.num[0].tow">
               </i><i class="num" :class=" 'No_' + lottery.num[0].three">
