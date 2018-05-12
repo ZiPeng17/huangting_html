@@ -2,7 +2,7 @@
     <div class="rank-list" ref="rankList">
       <div class="content" ref="content">
         <div class="title">
-          <span class="span1">重庆时时彩</span>
+          <span class="span1">极速时时彩</span>
           <span class="span2">长龙榜</span>
           <a class="span3" href="javscript:;" @click="hide">隐藏</a>
         </div>

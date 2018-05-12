@@ -16,7 +16,7 @@
                     <tbody><tr height="29" align="center">
                                     <td width="7%" class="font_bs" @click="tab('广东快乐十分开奖网')">快乐十分</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
-                                    <td width="7%" class="font_bs" @click="tab('重庆时时彩官方网')">重庆时时彩</td>
+                                    <td width="7%" class="font_bs" @click="tab('极速时时彩官方网')">极速时时彩</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
                                     <td width="7%" class="font_bs" @click="tab('北京赛车(PK10)官方网')">北京赛车</td>
                         <td background="/static/image/rule_b5.jpg" width="3%"></td>
@@ -56,7 +56,7 @@
 <h2>游戏规则说明：</h2>
 <ul type="disc">
   <li>以下所有投注皆含本金。
-  </li><li>该游戏的投注时间、开奖时间和开奖号码与重庆时时彩完全同步，北京时间（GMT+8）每天白天从上午10：00开到晚上22：00，夜场从22:00至凌晨2点,每10分钟开一次奖，夜场每5分鐘开一次奖,每天开奖120期(白天72期,夜间48期)。
+  </li><li>该游戏的投注时间、开奖时间和开奖号码与极速时时彩完全同步，北京时间（GMT+8）每天白天从上午10：00开到晚上22：00，夜场从22:00至凌晨2点,每10分钟开一次奖，夜场每5分鐘开一次奖,每天开奖120期(白天72期,夜间48期)。
 
   </li><li>
     <p>具体游戏规则如下:</p>

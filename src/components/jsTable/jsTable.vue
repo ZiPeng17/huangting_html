@@ -23,7 +23,7 @@
                     <td class="t_list_caption" width="105">退水后结果</td>
                 </tr>
                 <tr class="t_list_tr_1">
-                    <td>重庆时时彩</td>
+                    <td>极速时时彩</td>
                     <td>{{detail.num}}</td>
                     <td class="f_right">{{detail.money}}&nbsp;</td>
                     <td class="f_right">0.00&nbsp;</td>

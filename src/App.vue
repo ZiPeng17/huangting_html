@@ -5,7 +5,7 @@
       <tab @selectText="selectText"></tab>
     </div>
     <div class="fixed-bottom"></div>
-    <div class="clear">
+    <div class="clear" style="min-width:1250px;">
       <div class="page-left lsection">
         <table border="0" cellpadding="0" cellspacing="1" class="t_list" width="210">
           <tbody>
@@ -22,47 +22,49 @@
               <td class="t_td_caption_1">交收货币</td>
               <td class="t_td_text">RMB(人民币)</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="t_td_caption_1">信用额度</td>
               <td class="t_td_text">1</td>
-            </tr>
+            </tr> -->
             <tr>
               <td class="t_td_caption_1">可用金额</td>
               <td class="t_td_text" id="user_money">{{userInfo.money}}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td class="t_td_caption_1">已用金额</td>
               <td class="t_td_text">0.0</td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
 
-        <table class="t_list" border="0" cellspacing="1" cellpadding="0" width="210">
-          <tbody>
-            <tr>
-              <td class="t_list_caption tjj1" colspan="6">最近十二期开奖走势</td>
-            </tr>
-            <tr>
-              <td class="t_list_caption" colspan="6">
-                <span class="clrBtn" @click="click_left_tab(1)">号码</span>
-                <span class="clrBtn" @click="click_left_tab(2)">大小</span>
-                <span class="clrBtn" @click="click_left_tab(3)">单双</span>
-              </td>
-            </tr>
-            <tr class="t_list_caption tjj2">
-              <td>期号</td>
-              <td>万</td>
-              <td>千</td>
-              <td>佰</td>
-              <td>拾</td>
-              <td>个</td>
-            </tr>
-            <tr class="tr_linw" v-for="it in row_data">
-              <td class="jiqh">{{it.no}}</td>
-              <td class="No_" v-for="item in it.numbers">{{item}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="tab-box">
+          <table class="t_list" border="0" cellspacing="1" cellpadding="0" width="210">
+            <tbody>
+              <tr>
+                <td class="t_list_caption tjj1" colspan="6">最近十二期开奖走势</td>
+              </tr>
+              <tr>
+                <td class="t_list_caption" colspan="6">
+                  <span class="clrBtn" @click="click_left_tab(1)">号码</span>
+                  <span class="clrBtn" @click="click_left_tab(2)">大小</span>
+                  <span class="clrBtn" @click="click_left_tab(3)">单双</span>
+                </td>
+              </tr>
+              <tr class="t_list_caption tjj2">
+                <td>期号</td>
+                <td>万</td>
+                <td>千</td>
+                <td>佰</td>
+                <td>拾</td>
+                <td>个</td>
+              </tr>
+              <tr class="tr_linw" v-for="it in row_data">
+                <td class="jiqh">{{it.no}}</td>
+                <td class="No_" v-for="item in it.numbers">{{item}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="page-left rsection">
         <div v-if="show_top_menu.state">
@@ -278,6 +280,10 @@ export default {
   font-size: 12px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
+}
+.tab-box {
+  height: 291px;
+  overflow-y: scroll;
 }
 .fixed-top {
   position: fixed;

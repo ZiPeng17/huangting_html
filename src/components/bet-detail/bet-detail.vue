@@ -11,7 +11,7 @@
                     <td class="t_list_caption" width="105">退水后结果</td>
                 </tr>
                 <tr class="t_list_tr_1" @click="see_detail">
-                    <td>重庆时时彩</td>
+                    <td>极速时时彩</td>
                     <td>{{detail.num}}</td>
                     <td class="f_right">{{detail.money}}&nbsp;</td>
                     <td class="f_right">{{detail.res}}&nbsp;</td>

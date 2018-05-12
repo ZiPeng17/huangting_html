@@ -2,14 +2,14 @@
     <div class="page">
         <div>
             <select style="CURSOR: hand" onchange="ReportType(0,this)">
-                <option class="font_b" value="3" selected="">重庆时时彩</option>
+                <option class="font_b" value="3" selected="">极速时时彩</option>
             </select>
             <span> — 开奖结果查询</span>
         </div>
         
         <table class="t_list" border="0" cellspacing="1" cellpadding="0" width="700">
   <tbody><tr>
-    <td class="t_list_caption F_bold" colspan="7">重庆时时彩</td>
+    <td class="t_list_caption F_bold" colspan="7">极速时时彩</td>
     <td class="t_list_caption F_bold" colspan="3">总数</td>
     <td class="t_list_caption F_bold" colspan="4"></td>
     <!--无牛牛数据-->

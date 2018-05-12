@@ -162,7 +162,7 @@ table {
   margin-right: 0px;
   margin-bottom: 0px;
   background-color: #110502;
-  overflow: hidden;
+  overflow: auto;
 }
 .Fone_Color {
   font-size: 12px;

@@ -2,7 +2,7 @@
     <div class="page">
         <div>
             <select style="CURSOR: hand" onchange="ReportType(0,this)">
-                <option class="font_b" value="3" selected="">重庆时时彩</option>
+                <option class="font_b" value="3" selected="">极速时时彩</option>
             </select>
             <span> — 今日账单</span>
         </div>

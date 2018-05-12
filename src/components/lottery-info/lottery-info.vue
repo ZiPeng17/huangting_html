@@ -2,7 +2,7 @@
   <div class="lottery-info">
     <div class="marginB top-info">
       <div class="top-info-l">
-        <p>重庆时时彩【第{{parseFloat(lottery.period)+1}}期】</p>
+        <p>极速时时彩【第{{parseFloat(lottery.period)+1}}期】</p>
         <p class="red">今天輸贏： {{lottery.money}}</p>
       </div>
       <div class="top-info-2">

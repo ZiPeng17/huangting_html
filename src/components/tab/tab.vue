@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <div class="title">重庆时时彩</div>
+    <div class="title">极速时时彩<span class="logo-text">葡 京</span></div>
     <div>
       <img class="top-left-img" src="/static/image/topmenu_top2.jpg" width="231" height="29">
       <span v-for="(item,index) in tabArr"
@@ -41,12 +41,21 @@
 
 <style scoped>
   .title {
+    position: relative;
     padding: 15px;
     padding-left: 225px;
     background: #46210d;
     color: rgb(254, 215, 173);
     font-weight: bold;
     font-size: 17px;
+  }
+  .logo-text {
+    position: absolute;
+    left: 60px;
+    bottom: 15px;
+    font-size: 50px;
+    color: rga(254, 215, 173);
+    font-weight: 700
   }
   .top {
     padding: 0 0 4px 0;
