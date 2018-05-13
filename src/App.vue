@@ -37,27 +37,31 @@
           </tbody>
         </table>
 
+        <table class="t_list" border="0" cellspacing="1" cellpadding="0" width="210">
+          <tbody>
+            <tr>
+              <td class="t_list_caption tjj1" colspan="6">开奖走势</td>
+            </tr>
+            <tr>
+              <td class="t_list_caption" colspan="6">
+                <span class="clrBtn" @click="click_left_tab(1)">号码</span>
+                <span class="clrBtn" @click="click_left_tab(2)">大小</span>
+                <span class="clrBtn" @click="click_left_tab(3)">单双</span>
+              </td>
+            </tr>
+            <tr class="t_list_caption tjj2">
+              <td>期号</td>
+              <td>万</td>
+              <td>千</td>
+              <td>佰</td>
+              <td>拾</td>
+              <td>个</td>
+            </tr>
+          </tbody>
+        </table>
         <div class="tab-box">
           <table class="t_list" border="0" cellspacing="1" cellpadding="0" width="210">
             <tbody>
-              <tr>
-                <td class="t_list_caption tjj1" colspan="6">最近十二期开奖走势</td>
-              </tr>
-              <tr>
-                <td class="t_list_caption" colspan="6">
-                  <span class="clrBtn" @click="click_left_tab(1)">号码</span>
-                  <span class="clrBtn" @click="click_left_tab(2)">大小</span>
-                  <span class="clrBtn" @click="click_left_tab(3)">单双</span>
-                </td>
-              </tr>
-              <tr class="t_list_caption tjj2">
-                <td>期号</td>
-                <td>万</td>
-                <td>千</td>
-                <td>佰</td>
-                <td>拾</td>
-                <td>个</td>
-              </tr>
               <tr class="tr_linw" v-for="it in row_data">
                 <td class="jiqh">{{it.no}}</td>
                 <td class="No_" v-for="item in it.numbers">{{item}}</td>
@@ -282,7 +286,7 @@ export default {
   -webkit-box-sizing: border-box;
 }
 .tab-box {
-  height: 291px;
+  height: 200px;
   overflow-y: scroll;
 }
 .fixed-top {
