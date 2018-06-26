@@ -77,6 +77,7 @@
             }
         },
         created() {
+            console.log('his')
             this.$http.post( this.global.base_url + '/Admin/Api/Getlist').then(res => {
                 // if (res.data.code === '000') {
                     // console.log(res.data);

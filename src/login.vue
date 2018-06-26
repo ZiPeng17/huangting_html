@@ -58,7 +58,7 @@
         <li><span>6、</span><label>我們將竭力提供準確而可靠的開獎統計等資料，但並不保證資料絕對無誤，統計資料只供參考，並非是對客戶行為的指引，本公司也不接受關於統計數據產生錯誤而引起的相關投訴。</label></li>
         <li><span>7、</span><label>本公司擁有一切判決及註消任何涉嫌以非正常方式下註之權利，在進行更深入調查期間將停止發放與其有關之任何彩金。客戶有責任確保自己的帳戶及密碼保密，如果客戶懷疑自己的資料被盜用，應立即通知本公司，並須更改其個人詳細資料。所有被盜用帳號之損失將由客戶自行負責。在某種特殊情況下，客人之信用額可能會出現透支。</label></li>
         <li>&nbsp;</li>
-        <li style="text-align:right;">“皇庭”管理層 敬啟　</li>
+        <li style="text-align:right;">“葡京”管理層 敬啟　</li>
         <li style="text-align:center;">
           <div style="padding:0 125px;">
             <div style="float:left;width:10px;">
