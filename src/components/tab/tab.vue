@@ -1,6 +1,11 @@
 <template>
   <div class="top">
-    <div class="title">极速时时彩<span class="logo-text">葡 京</span></div>
+    <div class="title">
+      <span class="tab-item">极速时时彩</span>
+      <span class="tab-item">重庆时时彩</span>
+      <span class="tab-item">北京赛车</span>
+      <span class="tab-item">极速赛车</span>
+      <span class="logo-text">葡 京</span></div>
     <div>
       <img class="top-left-img" src="/static/image/topmenu_top2.jpg" width="231" height="29">
       <span v-for="(item,index) in tabArr"
@@ -48,6 +53,9 @@
     color: rgb(254, 215, 173);
     font-weight: bold;
     font-size: 17px;
+  }
+  .tab-item {
+    margin-right: 20px;
   }
   .logo-text {
     position: absolute;

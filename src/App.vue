@@ -167,7 +167,7 @@ export default {
       }
     }
     this.$http.post(this.global.base_url + '/Admin/Api/Getlist').then(res => {
-      // console.log(res.data);
+      console.log(res.data);
       this.lotter_data = res.data;
       this.switch_data(1);
     }, error => {
@@ -188,7 +188,8 @@ export default {
       this.$http.post(this.global.base_url + '/Admin/Api/getperlist', {user: this.global.userInfo.id}, {emulateJSON:true}).then(res => {
         // console.log(res.data);
         if (res.data.code == '000') {
-          this.lottery = res.data
+          this.lottery = res.data;
+          document.getElementById('user_money').innerText = res.data.m;
         } else {
           alert(res.data.msg)
         }
